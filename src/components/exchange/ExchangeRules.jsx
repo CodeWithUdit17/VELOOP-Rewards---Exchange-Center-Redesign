@@ -49,3 +49,4 @@ const ExchangeRules = ({ onOpenGlossary }) => {
 };
 
 export default ExchangeRules;
+

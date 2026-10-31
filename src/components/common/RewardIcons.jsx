@@ -131,3 +131,4 @@ export const CrownRewardIcon = ({ size = 28, className = '' }) => (
     <rect x="7" y="27" width="22" height="3" rx="1.5" fill="#fef08a" />
   </svg>
 );
+

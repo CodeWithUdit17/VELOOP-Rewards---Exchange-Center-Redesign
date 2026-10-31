@@ -214,3 +214,4 @@ export const platformGlossary = {
     description: "All conversions adhere to VELOOP safety rules: minimum balance requirements, anti-double-submission safeguards, and verified audit logs for every transaction.",
   },
 };
+

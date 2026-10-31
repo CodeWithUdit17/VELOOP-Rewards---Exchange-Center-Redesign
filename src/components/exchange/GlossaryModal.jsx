@@ -81,3 +81,4 @@ const GlossaryModal = ({ isOpen, onClose }) => {
 };
 
 export default GlossaryModal;
+

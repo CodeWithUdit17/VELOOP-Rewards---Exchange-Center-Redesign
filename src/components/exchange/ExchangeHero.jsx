@@ -108,3 +108,4 @@ const ExchangeHero = ({ onOpenHowItWorks }) => {
 };
 
 export default ExchangeHero;
+

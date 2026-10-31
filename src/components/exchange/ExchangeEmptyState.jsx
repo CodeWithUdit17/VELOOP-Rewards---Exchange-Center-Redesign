@@ -31,3 +31,4 @@ const ExchangeEmptyState = ({ onRefresh }) => {
 };
 
 export default ExchangeEmptyState;
+

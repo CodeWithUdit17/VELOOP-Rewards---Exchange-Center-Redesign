@@ -144,3 +144,4 @@ const EarnMoreGemsModal = ({ isOpen, onClose, onAddGems }) => {
 };
 
 export default EarnMoreGemsModal;
+
