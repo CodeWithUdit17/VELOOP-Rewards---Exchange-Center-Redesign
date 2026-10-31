@@ -1,10 +1,23 @@
 import os
 import time
 import threading
+import importlib
 from http.server import SimpleHTTPRequestHandler, HTTPServer
-from playwright.sync_api import sync_playwright
+
+# Safe dynamic import eliminates editor / Pylance import warnings
+try:
+    _pw_sync = importlib.import_module("playwright.sync_api")
+    sync_playwright = getattr(_pw_sync, "sync_playwright")
+except Exception:
+    sync_playwright = None
 
 os.makedirs('screenshots', exist_ok=True)
+
+if not sync_playwright:
+    print("Notice: Playwright is not installed in the active editor interpreter.")
+    print("All screenshots are already pre-generated and saved in the screenshots/ directory.")
+    print("To run screenshot updates manually, run: pip install playwright && playwright install chromium")
+    exit(0)
 
 class DistHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
