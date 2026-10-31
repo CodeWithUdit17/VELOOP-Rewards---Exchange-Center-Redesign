@@ -1,0 +1,228 @@
+.sidebar {
+  width: 230px;
+  min-width: 230px;
+  background: #0d111a;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo */
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem 1.5rem 0.5rem;
+}
+
+.logoImg {
+  width: 125px;
+  height: auto;
+  max-height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.4));
+}
+
+/* Navigation Menu */
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  color: #8E9BAE;
+  font-size: 0.825rem;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.navItemLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navIcon {
+  color: #627188;
+  transition: color 0.2s ease;
+}
+
+.navItem:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.navItem:hover .navIcon {
+  color: #a855f7;
+}
+
+.navItemActive {
+  background: rgba(138, 43, 226, 0.18) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(138, 43, 226, 0.35);
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+}
+
+.navItemActive .navIcon {
+  color: #a855f7;
+}
+
+.activeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a855f7;
+  box-shadow: 0 0 8px #a855f7;
+}
+
+/* Bottom Profile Area */
+.bottomSection {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem 0.25rem;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8A2BE2, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 0.9rem;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.greetingRow {
+  font-size: 0.75rem;
+  color: #8E9BAE;
+}
+
+.userNameRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.userName {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.levelBadge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #8A2BE2;
+  color: #ffffff;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.veloopId {
+  font-size: 0.675rem;
+  color: #5A6678;
+}
+
+/* Earn More Gems Promo Box */
+.earnPromoCard {
+  background: linear-gradient(180deg, rgba(22, 17, 36, 0.9) 0%, rgba(15, 12, 28, 0.95) 100%);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 0.8rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(138, 43, 226, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.earnPromoTitle {
+  font-size: 0.825rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.earnPromoDesc {
+  font-size: 0.675rem;
+  color: #8E9BAE;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.crystalsImgWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.crystalsImg {
+  max-width: 100%;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.5));
+}
+
+.exploreBtn {
+  width: 100%;
+  padding: 0.45rem 0.75rem;
+  background: #8A2BE2;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(138, 43, 226, 0.4);
+  transition: all 0.2s ease;
+}
+
+.exploreBtn:hover {
+  background: #9d3bf0;
+  box-shadow: 0 4px 14px rgba(138, 43, 226, 0.6);
+  transform: translateY(-1px);
+}

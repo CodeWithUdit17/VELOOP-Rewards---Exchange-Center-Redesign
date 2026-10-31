@@ -1,0 +1,182 @@
+.card {
+  background: linear-gradient(180deg, rgba(16, 20, 32, 0.95) 0%, rgba(10, 13, 22, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* Card Theme Specific Glows on hover */
+.cardPurple:hover {
+  border-color: rgba(138, 43, 226, 0.6);
+  box-shadow: 0 10px 30px rgba(138, 43, 226, 0.25);
+}
+
+.cardBlue:hover {
+  border-color: rgba(0, 85, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 85, 255, 0.25);
+}
+
+.cardGreen:hover {
+  border-color: rgba(0, 255, 102, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 255, 102, 0.25);
+}
+
+.cardGold:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.25);
+}
+
+/* Badges */
+.badgeWrapper {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.badgePopularPurple {
+  background: #8A2BE2;
+  color: #ffffff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.badgePopularBlue {
+  background: #0055FF;
+  color: #ffffff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* 3D Visual in Card */
+.visualArea {
+  margin: 1.25rem 0 0.85rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visualImg {
+  max-width: 100%;
+  height: 48px;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.card:hover .visualImg {
+  transform: scale(1.06);
+}
+
+/* Titles */
+.tierTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.65rem;
+}
+
+/* Rate Display (e.g. 28 Gems ↓ 151 VEs) */
+.rateBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 0.85rem;
+}
+
+.gemsAmount {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.arrowDown {
+  font-size: 0.8rem;
+  color: #8E9BAE;
+  line-height: 1;
+}
+
+.vesAmount {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.description {
+  font-size: 0.7rem;
+  color: #8E9BAE;
+  line-height: 1.35;
+  margin-bottom: 1.1rem;
+  min-height: 28px;
+}
+
+/* Convert Button */
+.convertBtn {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btnPurple {
+  background: #8A2BE2;
+  box-shadow: 0 2px 10px rgba(138, 43, 226, 0.4);
+}
+.btnPurple:hover {
+  background: #9d3bf0;
+  box-shadow: 0 4px 16px rgba(138, 43, 226, 0.6);
+  transform: translateY(-1px);
+}
+
+.btnBlue {
+  background: #0055FF;
+  box-shadow: 0 2px 10px rgba(0, 85, 255, 0.4);
+}
+.btnBlue:hover {
+  background: #1a6bff;
+  box-shadow: 0 4px 16px rgba(0, 85, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.btnGreen {
+  background: #00875a;
+  box-shadow: 0 2px 10px rgba(0, 135, 90, 0.4);
+}
+.btnGreen:hover {
+  background: #00a36c;
+  box-shadow: 0 4px 16px rgba(0, 163, 108, 0.6);
+  transform: translateY(-1px);
+}
+
+.btnGold {
+  background: #d97706;
+  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.4);
+}
+.btnGold:hover {
+  background: #f59e0b;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.6);
+  transform: translateY(-1px);
+}

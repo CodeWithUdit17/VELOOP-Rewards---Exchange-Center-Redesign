@@ -1,0 +1,181 @@
+.heroBanner {
+  position: relative;
+  background: linear-gradient(135deg, rgba(16, 20, 32, 0.92) 0%, rgba(10, 13, 22, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.6rem;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.bannerContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 900px) {
+  .bannerContent {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.headline {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.15;
+}
+
+.subhead {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 0.5rem;
+}
+
+.bodyText {
+  font-size: 0.8125rem;
+  color: #8E9BAE;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  max-width: 440px;
+}
+
+/* Split Balance Cards nested inside Hero */
+.splitCardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 480px) {
+  .splitCardsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.balanceMiniCard {
+  background: rgba(8, 11, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.balanceMiniCard:hover {
+  background: rgba(14, 18, 30, 0.9);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.balanceLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.balanceLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.725rem;
+  color: #8E9BAE;
+  margin-bottom: 2px;
+}
+
+.infoIcon {
+  cursor: pointer;
+  color: #5A6678;
+  transition: color 0.15s ease;
+}
+
+.infoIcon:hover {
+  color: #cbd5e1;
+}
+
+.balanceNumber {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.balanceSub {
+  font-size: 0.675rem;
+  color: #5A6678;
+}
+
+.balanceIconBox {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tokenImg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.5));
+}
+
+.coinImg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+/* Right Illustration Area */
+.rightCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.portalImgWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portalIllustration {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.35));
+  animation: floatSubtle 4s ease-in-out infinite;
+}
+
+@keyframes floatSubtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}

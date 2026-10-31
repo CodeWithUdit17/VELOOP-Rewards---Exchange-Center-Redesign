@@ -1,0 +1,281 @@
+.rightSidebar {
+  width: 320px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+@media (max-width: 1200px) {
+  .rightSidebar {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+/* Top Balance Indicators Bar */
+.topBalanceBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 0.25rem;
+}
+
+.balancePill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 18, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.pillIcon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.pillInfo {
+  color: #5A6678;
+  cursor: pointer;
+}
+
+.bellBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(14, 18, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8E9BAE;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.bellBtn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.bellDot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 6px;
+  height: 6px;
+  background: #f43f5e;
+  border-radius: 50%;
+}
+
+/* Widget Card Container */
+.widgetCard {
+  background: linear-gradient(180deg, rgba(16, 20, 32, 0.95) 0%, rgba(10, 13, 22, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+}
+
+.widgetTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.widgetLink {
+  font-size: 0.725rem;
+  color: #8E9BAE;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.widgetLink:hover {
+  color: #a855f7;
+}
+
+/* "What are these?" list */
+.glossaryItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 0.85rem;
+}
+
+.glossaryIcon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.glossaryInfo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.glossaryTerm {
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.glossaryDesc {
+  font-size: 0.7rem;
+  color: #8E9BAE;
+  margin: 2px 0 0 0;
+}
+
+.viewAllRulesLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: #8E9BAE;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.viewAllRulesLink:hover {
+  color: #a855f7;
+}
+
+/* Recent Conversions list */
+.conversionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.conversionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.convLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.convGemIcon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.convTextCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.convRateText {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.convDateText {
+  font-size: 0.65rem;
+  color: #5A6678;
+}
+
+.statusCompleted {
+  background: rgba(0, 255, 102, 0.12);
+  color: #00FF66;
+  border: 1px solid rgba(0, 255, 102, 0.25);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.statusFailed {
+  background: rgba(244, 63, 94, 0.12);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Exchange Rules Checklist */
+.rulesContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.rulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-width: 200px;
+}
+
+.ruleRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.685rem;
+  color: #8E9BAE;
+  line-height: 1.3;
+}
+
+.checkBullet {
+  color: #8A2BE2;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.shieldGraphicWrapper {
+  position: absolute;
+  right: -5px;
+  bottom: 0px;
+  width: 95px;
+  height: 105px;
+  pointer-events: none;
+}
+
+.shieldImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.5));
+}

@@ -1,0 +1,137 @@
+.container {
+  background: linear-gradient(180deg, rgba(16, 20, 32, 0.95) 0%, rgba(10, 13, 22, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.infoIcon {
+  color: #5A6678;
+  cursor: pointer;
+}
+
+.infoIcon:hover {
+  color: #cbd5e1;
+}
+
+/* 5 Steps horizontal chain */
+.stepsTrack {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .stepsTrack {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.stepCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+/* Connecting Line between steps on desktop */
+.stepCol:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 60%;
+  width: 80%;
+  height: 2px;
+  border-top: 2px dotted rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .stepCol:not(:last-child)::after {
+    display: none;
+  }
+}
+
+.nodeCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.65rem;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.nodeCircle:hover {
+  transform: scale(1.1);
+}
+
+.nodePurple {
+  background: rgba(138, 43, 226, 0.2);
+  border: 1.5px solid #8A2BE2;
+  color: #a855f7;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
+}
+
+.nodeBlue {
+  background: rgba(0, 85, 255, 0.2);
+  border: 1.5px solid #0055FF;
+  color: #38bdf8;
+  box-shadow: 0 0 10px rgba(0, 85, 255, 0.35);
+}
+
+.nodeTeal {
+  background: rgba(20, 184, 166, 0.2);
+  border: 1.5px solid #14b8a6;
+  color: #2dd4bf;
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.35);
+}
+
+.nodeGold {
+  background: rgba(255, 215, 0, 0.2);
+  border: 1.5px solid #FFD700;
+  color: #fbbf24;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+}
+
+.nodeGreen {
+  background: rgba(0, 255, 102, 0.2);
+  border: 1.5px solid #00FF66;
+  color: #34d399;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.35);
+}
+
+.stepTitle {
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.stepDesc {
+  font-size: 0.675rem;
+  color: #8E9BAE;
+  line-height: 1.35;
+  margin: 0;
+}

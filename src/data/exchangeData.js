@@ -1,20 +1,23 @@
 /**
  * VELOOP Rewards — Exchange Center Data Architecture
- * Structured datasets for exchange options, initial user profile,
+ * Structured datasets for exchange options, user profile,
  * recent conversion history, exchange rules, and platform metadata.
  */
 
 export const initialUserData = {
   name: "Hassan",
   level: "Level 7",
+  nextLevel: "Level 8",
+  levelProgress: 72, // 72% towards Level 8
   veloopId: "784591",
   availableGems: 420,
   availableVEs: 3850,
   tier: "Gold Contributor",
-  rewardsEarnedThisMonth: 820,
+  rewardsEarnedThisMonth: 1280,
+  monthlyConversionsCount: 6,
 };
 
-export const exchangeOptions = [
+export const standardExchangeOptions = [
   {
     id: "exchange-01",
     type: "gem-to-ve",
@@ -25,11 +28,12 @@ export const exchangeOptions = [
     badge: "Popular",
     badgeType: "primary",
     tagline: "Instant daily reward boost",
-    description: "Convert your earned Gems into VEs instantly.",
+    description: "Convert your daily earned Gems into VEs instantly.",
     visualType: "gem-cluster",
-    colorAccent: "#38bdf8", // soft blue / cyan
+    colorAccent: "#38bdf8",
     features: ["Instant credit", "Zero fee", "Daily eligible"],
     conversionRateDisplay: "28 Gems → 151 VEs",
+    isRecommended: true,
   },
   {
     id: "exchange-02",
@@ -40,12 +44,13 @@ export const exchangeOptions = [
     multiplier: "4.31x",
     badge: "Most Picked",
     badgeType: "accent",
-    tagline: "Higher conversion for better rewards",
-    description: "Higher conversion rate tailored for active weekly earners.",
+    tagline: "Higher conversion for active earners",
+    description: "Optimal conversion rate tailored for consistent weekly task finishers.",
     visualType: "reward-chest",
-    colorAccent: "#818cf8", // controlled purple / indigo
-    features: ["Priority settlement", "Reward bonus", "Instant credit"],
+    colorAccent: "#818cf8",
+    features: ["Priority settlement", "Standard reward", "Instant credit"],
     conversionRateDisplay: "39 Gems → 168 VEs",
+    isRecommended: false,
   },
   {
     id: "exchange-03",
@@ -57,11 +62,12 @@ export const exchangeOptions = [
     badge: "Bonus Yield",
     badgeType: "success",
     tagline: "Unlock greater value with more Gems",
-    description: "Optimized milestone yield when redeeming larger earned packages.",
+    description: "Optimized milestone yield when redeeming larger accumulated packages.",
     visualType: "vault",
-    colorAccent: "#34d399", // emerald mint
+    colorAccent: "#34d399",
     features: ["Higher yield", "Platform milestone", "Instant credit"],
     conversionRateDisplay: "57 Gems → 255 VEs",
+    isRecommended: false,
   },
   {
     id: "exchange-04",
@@ -72,30 +78,35 @@ export const exchangeOptions = [
     multiplier: "4.55x",
     badge: "High Value",
     badgeType: "warning",
-    tagline: "Premium conversion for premium rewards",
+    tagline: "Premium conversion for top rewards",
     description: "Elite tier exchange providing highest single-batch virtual currency.",
     visualType: "crystal-crown",
-    colorAccent: "#fbbf24", // gold
+    colorAccent: "#fbbf24",
     features: ["VIP multiplier", "Priority status", "Instant credit"],
     conversionRateDisplay: "100 Gems → 455 VEs",
-  },
-  {
-    id: "exchange-05",
-    type: "gem-to-ve",
-    tierName: "Grand Vault Conversion",
-    requiredGems: 500,
-    receiveVEs: 2450,
-    multiplier: "4.90x",
-    badge: "Milestone Tier",
-    badgeType: "special",
-    tagline: "Reserved for top reward achievers",
-    description: "Mega milestone exchange with the highest total VE return.",
-    visualType: "mega-vault",
-    colorAccent: "#c084fc", // violet
-    features: ["Grand rewards", "Collector badge", "Instant credit"],
-    conversionRateDisplay: "500 Gems → 2,450 VEs",
+    isRecommended: false,
   },
 ];
+
+export const milestoneVaultOption = {
+  id: "exchange-05",
+  type: "gem-to-ve",
+  tierName: "Grand Vault Milestone Conversion",
+  requiredGems: 500,
+  receiveVEs: 2450,
+  multiplier: "4.90x",
+  badge: "Elite Milestone Vault",
+  badgeType: "special",
+  tagline: "Reserved for top reward achievers",
+  description: "Exclusive milestone vault providing the maximum conversion yield on VELOOP Rewards.",
+  visualType: "mega-vault",
+  colorAccent: "#c084fc",
+  features: ["Grand multiplier", "Collector badge", "Direct VIP concierge"],
+  conversionRateDisplay: "500 Gems → 2,450 VEs",
+};
+
+// All options for state compatibility
+export const exchangeOptions = [...standardExchangeOptions, milestoneVaultOption];
 
 export const initialRecentConversions = [
   {
@@ -154,19 +165,19 @@ export const howExchangeWorksSteps = [
   {
     stepNumber: "01",
     title: "Earn Gems",
-    description: "Complete everyday tasks, participate in app events, and refer friends to build your Gems stash.",
+    description: "Complete everyday tasks, participate in app challenges, and refer friends to build your Gems stash.",
     icon: "gem",
   },
   {
     stepNumber: "02",
-    title: "Choose Conversion",
-    description: "Pick an available reward tier tailored to your available Gems balance and reward goals.",
+    title: "Choose Tier",
+    description: "Select a predefined conversion tier matching your available Gems and redemption plans.",
     icon: "layers",
   },
   {
     stepNumber: "03",
-    title: "Review Exchange",
-    description: "Inspect the required Gems, incoming VEs, and simulated new balance before confirming.",
+    title: "Review Preview",
+    description: "Inspect required Gems, incoming VEs, and simulated post-conversion balances before confirming.",
     icon: "check-circle",
   },
   {
@@ -214,4 +225,3 @@ export const platformGlossary = {
     description: "All conversions adhere to VELOOP safety rules: minimum balance requirements, anti-double-submission safeguards, and verified audit logs for every transaction.",
   },
 };
-
