@@ -1,0 +1,148 @@
+.navbar {
+  background: rgba(18, 21, 35, 0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  padding: 0.85rem 1.5rem;
+}
+
+.navContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brandLogo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+.brandName {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brandTagline {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #818cf8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.navLinks {
+  display: none;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (min-width: 992px) {
+  .navLinks {
+    display: flex;
+  }
+}
+
+.navItem {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.navItemActive {
+  color: #ffffff;
+  background: rgba(99, 102, 241, 0.16);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.rightControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quickBalancePill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 18, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-size: 0.775rem;
+  font-weight: 700;
+}
+
+.userProfileBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  padding: 4px 12px 4px 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.userProfileBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.avatarCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.userName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+}

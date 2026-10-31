@@ -1,0 +1,80 @@
+.container {
+  background: linear-gradient(145deg, rgba(28, 33, 56, 0.75) 0%, rgba(20, 24, 42, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 1.8rem 1.6rem;
+  margin-bottom: 2.25rem;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #34d399;
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.rulesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .rulesGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ruleItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(15, 18, 30, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  transition: all var(--transition-fast);
+}
+
+.ruleItem:hover {
+  background: rgba(25, 30, 52, 0.7);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.checkIcon {
+  color: #34d399;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ruleText {
+  font-size: 0.8125rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin: 0;
+}

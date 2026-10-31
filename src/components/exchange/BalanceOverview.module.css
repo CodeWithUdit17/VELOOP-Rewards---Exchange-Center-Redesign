@@ -1,0 +1,243 @@
+.balanceContainer {
+  margin-bottom: 2.25rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.userLevel {
+  color: #c084fc;
+  font-weight: 700;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.balanceCard {
+  position: relative;
+  background: linear-gradient(145deg, rgba(28, 33, 56, 0.9) 0%, rgba(20, 24, 42, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.balanceCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.gemsCard:hover {
+  box-shadow: 0 16px 36px rgba(168, 85, 247, 0.15);
+  border-color: rgba(192, 132, 252, 0.3);
+}
+
+.vesCard:hover {
+  box-shadow: 0 16px 36px rgba(251, 191, 36, 0.15);
+  border-color: rgba(253, 224, 71, 0.3);
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.labelGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cardLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.infoButton {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.infoButton:hover {
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.iconWrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gemsIconBg {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(126, 34, 206, 0.08) 100%);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+}
+
+.vesIconBg {
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(217, 119, 6, 0.08) 100%);
+  border: 1px solid rgba(253, 224, 71, 0.25);
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 0.6rem;
+}
+
+.balanceValue {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+.balanceUnit {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 0.5rem;
+}
+
+.subText {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+}
+
+.actionLink {
+  font-size: 0.775rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-blue);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: gap var(--transition-fast);
+}
+
+.actionLink:hover {
+  gap: 7px;
+  color: #7dd3fc;
+}
+
+/* Tooltip Popup */
+.popoverCard {
+  position: absolute;
+  top: 45px;
+  left: 20px;
+  right: 20px;
+  background: #1f253e;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+
+.popoverHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.popoverTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.popoverClose {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+}
+
+.popoverDesc {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #cbd5e1;
+  margin: 0;
+}

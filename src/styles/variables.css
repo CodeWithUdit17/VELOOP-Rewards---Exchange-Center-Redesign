@@ -1,0 +1,59 @@
+:root {
+  /* VELOOP Brand Palette */
+  --bg-app: #161827;
+  --bg-app-dark: #0f111d;
+  --bg-card: #1c2136;
+  --bg-card-hover: #222842;
+  --bg-card-elevated: #252c4a;
+  --bg-glass: rgba(28, 33, 54, 0.75);
+  --bg-glass-card: rgba(30, 36, 60, 0.65);
+  --bg-glass-hover: rgba(38, 46, 75, 0.85);
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-glow: rgba(99, 102, 241, 0.3);
+  --border-gold-glow: rgba(251, 191, 36, 0.35);
+
+  /* Accent Colors */
+  --accent-blue: #38bdf8;
+  --accent-indigo: #6366f1;
+  --accent-purple: #8b5cf6;
+  --accent-gold: #fbbf24;
+  --accent-gold-dark: #d97706;
+  --accent-emerald: #10b981;
+  --accent-rose: #f43f5e;
+  
+  /* Gems & VE Specific Tokens */
+  --gem-primary: #a855f7;
+  --gem-light: #c084fc;
+  --gem-glow: rgba(168, 85, 247, 0.25);
+  --ve-primary: #eab308;
+  --ve-light: #fef08a;
+  --ve-glow: rgba(234, 179, 8, 0.25);
+
+  /* Typography Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0f172a;
+
+  /* Shadows & Glows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --shadow-glow-purple: 0 0 30px rgba(139, 92, 246, 0.18);
+  --shadow-glow-gold: 0 0 30px rgba(251, 191, 36, 0.16);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}

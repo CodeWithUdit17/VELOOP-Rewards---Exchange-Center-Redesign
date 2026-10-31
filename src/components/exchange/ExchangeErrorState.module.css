@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 2rem;
+  background: rgba(22, 24, 39, 0.75);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.iconCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f43f5e;
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  max-width: 420px;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.retryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 1.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.retryBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}

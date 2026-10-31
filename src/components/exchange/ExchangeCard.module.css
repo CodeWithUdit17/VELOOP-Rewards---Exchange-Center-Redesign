@@ -1,0 +1,285 @@
+.card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(30, 36, 62, 0.9) 0%, rgba(20, 24, 42, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 1.6rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
+}
+
+.cardSelected {
+  border-color: var(--accent-indigo);
+  box-shadow: 0 0 0 2px var(--accent-indigo), 0 16px 40px rgba(99, 102, 241, 0.25);
+}
+
+.cardInsufficient {
+  opacity: 0.92;
+  border-color: rgba(244, 63, 94, 0.2);
+}
+
+.cardInsufficient:hover {
+  border-color: rgba(244, 63, 94, 0.35);
+  box-shadow: 0 12px 30px rgba(244, 63, 94, 0.15);
+}
+
+/* Header & Badges */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.tierBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.badgePopular {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badgeAccent {
+  background: rgba(129, 140, 248, 0.16);
+  color: #a5b4fc;
+  border: 1px solid rgba(129, 140, 248, 0.3);
+}
+
+.badgeSuccess {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badgeWarning {
+  background: rgba(251, 191, 36, 0.16);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.badgeSpecial {
+  background: rgba(192, 132, 252, 0.16);
+  color: #d8b4fe;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
+.multiplierTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  background: rgba(251, 191, 36, 0.1);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Card Visual Illustration */
+.visualContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.visualHalo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform var(--transition-normal);
+}
+
+.card:hover .visualHalo {
+  transform: scale(1.08) rotate(3deg);
+}
+
+/* Tier Name & Tagline */
+.titleGroup {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.tierTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.tierTagline {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Conversion Pathway Box (NOT crypto swap, strictly reward conversion) */
+.conversionBox {
+  background: rgba(15, 18, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.conversionUnit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.unitAmount {
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.unitLabel {
+  font-size: 0.725rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.conversionPathway {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.pathwayArrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-blue);
+  transition: transform var(--transition-fast);
+}
+
+.card:hover .pathwayArrow {
+  transform: translateX(2px);
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+/* Insufficient alert note */
+.insufficientNotice {
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.insufficientText {
+  font-size: 0.75rem;
+  color: #fda4af;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.progressContainer {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #f43f5e, #fbbf24);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Action Button */
+.convertButton {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.convertButton:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+  transform: translateY(-1px);
+}
+
+.convertButton:active {
+  transform: translateY(0);
+}
+
+/* Button variant for insufficient Gems */
+.earnMoreButton {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.earnMoreButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
