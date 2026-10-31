@@ -67,7 +67,13 @@ const Sidebar = ({
       <div className={styles.bottomSection}>
         {/* User Profile */}
         <div className={styles.profileCard}>
-          <div className={styles.avatar}>H</div>
+          <div className={styles.avatar}>
+            <img
+              src="/assets/user_avatar.png"
+              alt="Hasan Level 7"
+              className={styles.avatarImg}
+            />
+          </div>
           <div className={styles.profileInfo}>
             <span className={styles.greetingRow}>Hello,</span>
             <div className={styles.userNameRow}>

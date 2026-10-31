@@ -24,3 +24,4 @@ const MidRewardBanner = () => {
 };
 
 export default MidRewardBanner;
+

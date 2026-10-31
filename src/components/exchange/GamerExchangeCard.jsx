@@ -87,3 +87,4 @@ const GamerExchangeCard = ({
 };
 
 export default GamerExchangeCard;
+

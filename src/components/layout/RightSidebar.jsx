@@ -90,8 +90,16 @@ const RightSidebar = ({
             <div key={item.id || idx} className={styles.conversionRow}>
               <div className={styles.convLeft}>
                 <img
-                  src={idx === 1 ? '/assets/card2_blue.png' : idx === 2 ? '/assets/card3_green.png' : '/assets/gem_purple.png'}
-                  alt="icon"
+                  src={
+                    idx === 1
+                      ? '/assets/gem_blue.png'
+                      : idx === 2
+                      ? '/assets/gem_green.png'
+                      : idx === 3
+                      ? '/assets/gem_gold.png'
+                      : '/assets/gem_purple.png'
+                  }
+                  alt="gem"
                   className={styles.convGemIcon}
                   style={{ width: 14, height: 14, objectFit: 'contain' }}
                 />
@@ -151,3 +159,4 @@ const RightSidebar = ({
 };
 
 export default RightSidebar;
+
