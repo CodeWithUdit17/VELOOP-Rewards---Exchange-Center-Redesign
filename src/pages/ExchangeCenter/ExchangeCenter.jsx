@@ -204,8 +204,7 @@ const ExchangeCenter = () => {
         <div className={styles.footerContainer}>
           <div className={styles.footerLeft}>
             <div className={styles.footerLogo}>
-              <img src="/assets/veloop_logo.png" alt="VELOP REWARDS" className={styles.footerLogoImg} />
-              <span className={styles.footerBrandName}>VELOP REWARDS</span>
+              <img src="/assets/veloop_logo.png" alt="VEELOOP REWARDS" className={styles.footerLogoImg} />
             </div>
             <p className={styles.footerDesc}>
               The premium reward conversion platform. Convert activity credits into real-value VEs with guaranteed instant settlement.

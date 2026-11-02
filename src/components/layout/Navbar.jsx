@@ -44,7 +44,7 @@ const Navbar = ({
         <div className={styles.brandGroup} onClick={() => handleNavClick('exchange')} role="button" tabIndex={0}>
           <img
             src="/assets/veloop_logo.png"
-            alt="VELOP REWARDS"
+            alt="VEELOOP REWARDS"
             className={styles.brandLogoImg}
           />
           <span className={styles.brandBadge}>

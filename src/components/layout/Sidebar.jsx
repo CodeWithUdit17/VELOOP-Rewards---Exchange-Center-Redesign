@@ -35,7 +35,7 @@ const Sidebar = ({
         <div className={styles.logoWrapper}>
           <img
             src="/assets/veloop_logo.png"
-            alt="VELOP REWARDS"
+            alt="VEELOOP REWARDS"
             className={styles.logoImg}
           />
         </div>
