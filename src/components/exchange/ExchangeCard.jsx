@@ -120,7 +120,7 @@ const ExchangeCard = ({
         <div className={styles.conversionUnit}>
           <span className={styles.unitAmount}>{requiredGems}</span>
           <span className={styles.unitLabel}>
-            <GemIcon size={14} />
+            <GemIcon size={16} />
             Gems
           </span>
         </div>
@@ -138,7 +138,7 @@ const ExchangeCard = ({
             +{receiveVEs}
           </span>
           <span className={styles.unitLabel}>
-            <VECoinIcon size={14} />
+            <VECoinIcon size={16} />
             VEs
           </span>
         </div>

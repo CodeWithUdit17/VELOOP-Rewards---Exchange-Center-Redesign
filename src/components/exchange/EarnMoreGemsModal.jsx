@@ -9,6 +9,7 @@ const EARN_TASKS = [
     id: 'task-1',
     title: 'Daily Platform Check-in',
     reward: 20,
+    imgIcon: '/assets/gift_box.png',
     icon: Gift,
     description: 'Claim your consecutive daily activity bonus.',
   },
@@ -97,7 +98,15 @@ const EarnMoreGemsModal = ({ isOpen, onClose, onAddGems }) => {
                         flexShrink: 0,
                       }}
                     >
-                      <Icon size={18} />
+                      {task.imgIcon ? (
+                        <img
+                          src={task.imgIcon}
+                          alt={task.title}
+                          style={{ width: 26, height: 26, objectFit: 'contain' }}
+                        />
+                      ) : (
+                        <Icon size={18} />
+                      )}
                     </div>
 
                     <div className={styles.taskInfo}>

@@ -18,10 +18,11 @@
   gap: 12px;
 }
 
-.crownIcon {
-  font-size: 1.2rem;
-  color: #FFD700;
-  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+.crownImg {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(251, 191, 36, 0.45));
 }
 
 .text {

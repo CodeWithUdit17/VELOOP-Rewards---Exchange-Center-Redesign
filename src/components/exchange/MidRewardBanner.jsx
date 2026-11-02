@@ -1,12 +1,15 @@
 import React from 'react';
-import { Crown } from 'lucide-react';
 import styles from './MidRewardBanner.module.css';
 
 const MidRewardBanner = () => {
   return (
     <div className={styles.banner}>
       <div className={styles.leftGroup}>
-        <Crown size={20} className={styles.crownIcon} />
+        <img
+          src="/assets/crown.png"
+          alt="Royal Tier"
+          className={styles.crownImg}
+        />
         <span className={styles.text}>
           The more Gems you have, the better the rewards you unlock! Keep earning and keep growing.
         </span>
