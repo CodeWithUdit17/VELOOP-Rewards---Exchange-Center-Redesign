@@ -21,16 +21,16 @@ html, body {
 
 body {
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 90% 15%, rgba(0, 85, 255, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(0, 255, 102, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 15% 0%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 10%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(56, 189, 248, 0.06) 0%, transparent 50%);
   background-attachment: fixed;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -38,12 +38,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1c2333;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a354d;
+  background: rgba(255, 255, 255, 0.22);
 }
 
 button {

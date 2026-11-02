@@ -1,51 +1,56 @@
 :root {
-  /* Futuristic Gamer Dashboard Palette */
-  --bg-app: #0B0E14;
-  --bg-app-darker: #07090D;
-  --bg-sidebar: #0e121b;
-  --bg-card: rgba(17, 22, 34, 0.85);
-  --bg-card-hover: rgba(23, 29, 44, 0.95);
-  --bg-card-inner: rgba(12, 16, 26, 0.75);
+  /* VeloopRewards.in Premium Dark Theme Palette (#161827 base) */
+  --bg-app: #161827;
+  --bg-app-darker: #10121e;
+  --bg-surface: #1e2238;
+  --bg-surface-elevated: #242944;
+  --bg-card: rgba(30, 35, 58, 0.75);
+  --bg-card-hover: rgba(38, 45, 74, 0.9);
+  --bg-card-inner: rgba(18, 21, 36, 0.85);
 
-  /* Neon Accents */
-  --neon-purple: #8A2BE2;
-  --neon-purple-light: #a855f7;
-  --neon-purple-glow: rgba(138, 43, 226, 0.35);
+  /* Primary Accent: Controlled Luxury Violet / Purple */
+  --brand-purple: #8b5cf6;
+  --brand-purple-light: #a78bfa;
+  --brand-purple-dark: #6d28d9;
+  --brand-purple-glow: rgba(139, 92, 246, 0.3);
 
-  --neon-blue: #0055FF;
-  --neon-blue-light: #38bdf8;
-  --neon-blue-glow: rgba(0, 85, 255, 0.35);
+  /* Gold Currency Accent (VEs) */
+  --brand-gold: #f59e0b;
+  --brand-gold-light: #fbbf24;
+  --brand-gold-dark: #d97706;
+  --brand-gold-glow: rgba(245, 158, 11, 0.28);
 
-  --neon-green: #00FF66;
-  --neon-green-light: #10b981;
-  --neon-green-glow: rgba(0, 255, 102, 0.3);
-
-  --neon-gold: #FFD700;
-  --neon-gold-light: #fbbf24;
-  --neon-gold-glow: rgba(255, 215, 0, 0.35);
+  /* Secondary Accents: Soft Blue & Emerald */
+  --brand-blue: #38bdf8;
+  --brand-blue-glow: rgba(56, 189, 248, 0.25);
+  --brand-green: #10b981;
+  --brand-green-glow: rgba(16, 185, 129, 0.25);
+  --brand-rose: #f43f5e;
 
   /* Borders & Glassmorphism */
   --border-glass: rgba(255, 255, 255, 0.08);
-  --border-glass-hover: rgba(255, 255, 255, 0.16);
-  --border-purple: rgba(138, 43, 226, 0.4);
+  --border-glass-hover: rgba(255, 255, 255, 0.18);
+  --border-accent: rgba(139, 92, 246, 0.4);
+  --border-gold: rgba(245, 158, 11, 0.4);
 
   /* Typography */
   --text-main: #FFFFFF;
-  --text-muted: #8E9BAE;
-  --text-dim: #5A6678;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
 
   /* Radii */
   --radius-xs: 6px;
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 18px;
-  --radius-xl: 22px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.45);
-  --shadow-purple-glow: 0 0 25px rgba(138, 43, 226, 0.3);
-  --shadow-blue-glow: 0 0 25px rgba(0, 85, 255, 0.3);
-  --shadow-green-glow: 0 0 25px rgba(0, 255, 102, 0.3);
-  --shadow-gold-glow: 0 0 25px rgba(255, 215, 0, 0.3);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 12px 32px -4px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 20px 40px -8px rgba(0, 0, 0, 0.6), 0 0 25px rgba(139, 92, 246, 0.2);
+  --shadow-gold-glow: 0 0 25px rgba(245, 158, 11, 0.3);
+  --shadow-purple-glow: 0 0 25px rgba(139, 92, 246, 0.3);
 }

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import Sidebar from '../../components/layout/Sidebar';
-import RightSidebar from '../../components/layout/RightSidebar';
-import ExchangeHeroBanner from '../../components/exchange/ExchangeHeroBanner';
-import GamerExchangeCard from '../../components/exchange/GamerExchangeCard';
+import Navbar from '../../components/layout/Navbar';
+import ExchangeHero from '../../components/exchange/ExchangeHero';
+import BalanceOverview from '../../components/exchange/BalanceOverview';
+import ExchangeCard from '../../components/exchange/ExchangeCard';
 import MidRewardBanner from '../../components/exchange/MidRewardBanner';
-import GamerHowExchangeWorks from '../../components/exchange/GamerHowExchangeWorks';
+import HowExchangeWorks from '../../components/exchange/HowExchangeWorks';
+import ExchangeRules from '../../components/exchange/ExchangeRules';
+import ExchangeHistory from '../../components/exchange/ExchangeHistory';
 
 import ExchangeModal from '../../components/exchange/ExchangeModal';
 import ConversionSuccess from '../../components/exchange/ConversionSuccess';
@@ -21,7 +23,7 @@ import {
 } from '../../data/exchangeData';
 
 import styles from './ExchangeCenter.module.css';
-import { Info, Settings } from 'lucide-react';
+import { Info, Settings, Sparkles, ShieldCheck, HelpCircle } from 'lucide-react';
 
 const ExchangeCenter = () => {
   // User Profile and Balances
@@ -29,7 +31,7 @@ const ExchangeCenter = () => {
   const [availableGems, setAvailableGems] = useState(initialUserData.availableGems);
   const [availableVEs, setAvailableVEs] = useState(initialUserData.availableVEs);
 
-  // Conversion options (4 cards)
+  // Conversion options (4 cards + grand vault)
   const [options, setOptions] = useState(standardExchangeOptions);
   const [history, setHistory] = useState(initialRecentConversions);
 
@@ -91,88 +93,158 @@ const ExchangeCenter = () => {
     setAvailableGems((prev) => prev + amount);
   };
 
+  const handleScrollToHowItWorks = () => {
+    const el = document.getElementById('how-it-works-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className={styles.dashboardContainer}>
-      {/* 1. Left Sidebar */}
-      <Sidebar
+    <div className={styles.appWrapper}>
+      {/* 1. Global Sticky Navbar */}
+      <Navbar
+        userData={userData}
+        availableGems={availableGems}
+        availableVEs={availableVEs}
         activeTab={activeTab}
         onSelectTab={setActiveTab}
-        onExploreGems={() => setIsEarnGemsOpen(true)}
-        userData={userData}
+        onOpenNotifications={() => setIsGlossaryOpen(true)}
       />
 
-      {/* Main Layout: Center Column + Right Sidebar */}
-      <div className={styles.mainLayout}>
-        {/* 2. Center Content Column */}
-        <main className={styles.centerColumn}>
-          {/* Top-Center Hero Banner */}
-          <ExchangeHeroBanner
-            gems={availableGems}
-            ves={availableVEs}
-            onInfoClick={() => setIsGlossaryOpen(true)}
-          />
+      {/* 2. Main Page Container */}
+      <main className={styles.mainContainer}>
+        {/* Top Hero Section */}
+        <ExchangeHero onOpenHowItWorks={handleScrollToHowItWorks} />
 
-          {/* Available Conversions Section */}
-          <section aria-label="Available Conversions">
-            <div className={styles.conversionsHeaderRow}>
-              <h2 className={styles.conversionsTitle}>Available Conversions</h2>
-              <Info
-                size={13}
-                className={styles.infoIcon}
-                onClick={() => setIsGlossaryOpen(true)}
-              />
-            </div>
-
-            {/* View State Rendering (Normal / Loader / Error / Empty) */}
-            {viewState === 'loading' && (
-              <ExchangeLoader
-                title="Preparing your reward conversions..."
-                subtitle="Fetching verified conversion ratios and real-time wallet allocations."
-              />
-            )}
-
-            {viewState === 'error' && (
-              <ExchangeErrorState
-                title="Unable to load exchange options."
-                description="Could not synchronize with the reward ledger. Please try again."
-                onRetry={() => setViewState('normal')}
-              />
-            )}
-
-            {viewState === 'empty' && (
-              <ExchangeEmptyState onRefresh={() => setViewState('normal')} />
-            )}
-
-            {viewState === 'normal' && (
-              <div className={styles.cardsGrid}>
-                {options.map((opt) => (
-                  <GamerExchangeCard
-                    key={opt.id}
-                    option={opt}
-                    availableGems={availableGems}
-                    onSelectExchange={handleSelectExchange}
-                  />
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* Mid Banner: "The more Gems you have..." */}
-          <MidRewardBanner />
-
-          {/* Bottom Flow: "How Exchange Works" */}
-          <GamerHowExchangeWorks onInfoClick={() => setIsGlossaryOpen(true)} />
-        </main>
-
-        {/* 3. Right-Hand Sidebar */}
-        <RightSidebar
+        {/* Balance Overview Cards */}
+        <BalanceOverview
           gems={availableGems}
           ves={availableVEs}
-          history={history}
-          onOpenGlossary={() => setIsGlossaryOpen(true)}
-          onOpenRules={() => setIsGlossaryOpen(true)}
+          userData={userData}
+          onEarnMoreGems={() => setIsEarnGemsOpen(true)}
         />
-      </div>
+
+        {/* Available Conversions Section */}
+        <section className={styles.conversionsSection} aria-label="Available Conversions">
+          <div className={styles.conversionsHeaderRow}>
+            <div>
+              <div className={styles.sectionBadge}>
+                <Sparkles size={12} />
+                <span>Verified Reward Tiers</span>
+              </div>
+              <h2 className={styles.conversionsTitle}>Available Conversions</h2>
+              <p className={styles.conversionsSub}>
+                Choose the conversion tier that fits your balance. Guaranteed 100% instant reward settlement.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              className={styles.infoBadgeBtn}
+              onClick={() => setIsGlossaryOpen(true)}
+            >
+              <Info size={14} />
+              <span>Conversion Rules</span>
+            </button>
+          </div>
+
+          {/* View States */}
+          {viewState === 'loading' && (
+            <ExchangeLoader
+              title="Preparing your reward conversions..."
+              subtitle="Fetching verified conversion ratios and real-time wallet allocations."
+            />
+          )}
+
+          {viewState === 'error' && (
+            <ExchangeErrorState
+              title="Unable to load exchange options."
+              description="Could not synchronize with the reward ledger. Please try again."
+              onRetry={() => setViewState('normal')}
+            />
+          )}
+
+          {viewState === 'empty' && (
+            <ExchangeEmptyState onRefresh={() => setViewState('normal')} />
+          )}
+
+          {viewState === 'normal' && (
+            <div className={styles.cardsGrid}>
+              {options.map((opt) => (
+                <ExchangeCard
+                  key={opt.id}
+                  option={opt}
+                  availableGems={availableGems}
+                  onSelectExchange={handleSelectExchange}
+                  onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Mid Reward Incentive Banner */}
+        <MidRewardBanner />
+
+        {/* 5-Step Process Flow */}
+        <div id="how-it-works-section">
+          <HowExchangeWorks />
+        </div>
+
+        {/* Rules & Trust Guardrails */}
+        <ExchangeRules onOpenGlossary={() => setIsGlossaryOpen(true)} />
+
+        {/* Recent Conversions Transaction Ledger */}
+        <ExchangeHistory history={history} />
+      </main>
+
+      {/* 3. Global Footer */}
+      <footer className={styles.footer}>
+        <div className={styles.footerContainer}>
+          <div className={styles.footerLeft}>
+            <div className={styles.footerLogo}>
+              <img src="/assets/veloop_logo.png" alt="VELOP REWARDS" className={styles.footerLogoImg} />
+              <span className={styles.footerBrandName}>VELOP REWARDS</span>
+            </div>
+            <p className={styles.footerDesc}>
+              The premium reward conversion platform. Convert activity credits into real-value VEs with guaranteed instant settlement.
+            </p>
+          </div>
+
+          <div className={styles.footerTrust}>
+            <div className={styles.trustItem}>
+              <ShieldCheck size={16} className={styles.trustIcon} />
+              <div>
+                <strong>Encrypted Reward Ledger</strong>
+                <span>Instant cryptographically verified conversions</span>
+              </div>
+            </div>
+            <div className={styles.trustItem}>
+              <HelpCircle size={16} className={styles.trustIcon} />
+              <div>
+                <strong>Need Support?</strong>
+                <span>velooprewardsofficial@gmail.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.footerBottomBar}>
+          <span>© 2026 VELOOP Rewards. All rights reserved. Virtual Reward Currency System.</span>
+          <div className={styles.footerLinks}>
+            <button type="button" onClick={() => setIsGlossaryOpen(true)} className={styles.footerLink}>
+              Terms of Service
+            </button>
+            <button type="button" onClick={() => setIsGlossaryOpen(true)} className={styles.footerLink}>
+              Platform Rules
+            </button>
+            <button type="button" onClick={() => setIsGlossaryOpen(true)} className={styles.footerLink}>
+              Glossary
+            </button>
+          </div>
+        </div>
+      </footer>
 
       {/* Confirmation Modal */}
       <ExchangeModal

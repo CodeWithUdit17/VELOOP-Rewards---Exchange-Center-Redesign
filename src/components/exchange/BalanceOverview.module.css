@@ -7,10 +7,12 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .sectionTitle {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -20,27 +22,25 @@
   gap: 8px;
 }
 
-.userBadgeRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.titleIcon {
+  color: var(--brand-purple-light);
 }
 
-.userTag {
+.liveRateTag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(30, 35, 58, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 4px 10px;
+  padding: 5px 14px;
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  color: var(--text-secondary);
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--brand-gold-light);
 }
 
-.userLevel {
-  color: #c084fc;
-  font-weight: 700;
+.rateIcon {
+  color: var(--brand-gold-light);
 }
 
 .cardsGrid {
@@ -57,39 +57,70 @@
 
 .balanceCard {
   position: relative;
-  background: linear-gradient(145deg, rgba(28, 33, 56, 0.9) 0%, rgba(20, 24, 42, 0.95) 100%);
+  background: linear-gradient(145deg, rgba(30, 35, 58, 0.8) 0%, rgba(22, 25, 42, 0.95) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  transition: all var(--transition-normal);
+  padding: 1.6rem 1.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  backdrop-filter: blur(14px);
 }
 
 .balanceCard:hover {
   transform: translateY(-3px);
   border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.gemsCard {
+  border-color: rgba(139, 92, 246, 0.2);
 }
 
 .gemsCard:hover {
-  box-shadow: 0 16px 36px rgba(168, 85, 247, 0.15);
-  border-color: rgba(192, 132, 252, 0.3);
+  box-shadow: 0 16px 36px rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.cardGlowPurple {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.vesCard {
+  border-color: rgba(245, 158, 11, 0.2);
 }
 
 .vesCard:hover {
-  box-shadow: 0 16px 36px rgba(251, 191, 36, 0.15);
-  border-color: rgba(253, 224, 71, 0.3);
+  box-shadow: 0 16px 36px rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.cardGlowGold {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .cardTopRow {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .labelGroup {
@@ -99,61 +130,71 @@
 }
 
 .cardLabel {
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 0.825rem;
+  font-weight: 700;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   margin: 0;
 }
 
 .infoButton {
   background: transparent;
   border: none;
-  color: var(--text-muted);
+  color: var(--text-dim);
   cursor: pointer;
   padding: 2px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: color var(--transition-fast), transform var(--transition-fast);
+  transition: all 0.2s ease;
 }
 
 .infoButton:hover {
-  color: var(--text-primary);
+  color: #ffffff;
   transform: scale(1.1);
 }
 
-.iconWrapper {
-  width: 52px;
-  height: 52px;
+.iconBoxPurple {
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, rgba(30, 35, 58, 0.6) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.25);
 }
 
-.gemsIconBg {
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(126, 34, 206, 0.08) 100%);
-  border: 1px solid rgba(192, 132, 252, 0.25);
+.iconBoxGold {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, rgba(30, 35, 58, 0.6) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
 }
 
-.vesIconBg {
-  background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(217, 119, 6, 0.08) 100%);
-  border: 1px solid rgba(253, 224, 71, 0.25);
+.balance3dIcon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .valueRow {
   display: flex;
   align-items: baseline;
-  gap: 8px;
-  margin-bottom: 0.6rem;
+  gap: 10px;
+  margin-bottom: 0.5rem;
 }
 
 .balanceValue {
-  font-size: 2.5rem;
+  font-size: 2.85rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -161,10 +202,16 @@
   font-variant-numeric: tabular-nums;
 }
 
-.balanceUnit {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-secondary);
+.balanceUnitGems {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-purple-light);
+}
+
+.balanceUnitVEs {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-gold-light);
 }
 
 .cardFooter {
@@ -173,45 +220,57 @@
   justify-content: space-between;
   padding-top: 0.85rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .subText {
-  font-size: 0.775rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
-.actionLink {
-  font-size: 0.775rem;
-  font-weight: 600;
+.actionLinkPurple {
+  font-size: 0.8rem;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  color: var(--accent-blue);
-  background: transparent;
-  border: none;
+  gap: 5px;
+  color: var(--brand-purple-light);
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
   cursor: pointer;
-  padding: 0;
-  transition: gap var(--transition-fast);
+  transition: all 0.2s ease;
 }
 
-.actionLink:hover {
-  gap: 7px;
-  color: #7dd3fc;
+.actionLinkPurple:hover {
+  background: rgba(139, 92, 246, 0.28);
+  color: #ffffff;
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+.statusVerified {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: #34d399;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* Tooltip Popup */
 .popoverCard {
   position: absolute;
-  top: 45px;
+  top: 50px;
   left: 20px;
   right: 20px;
   background: #1f253e;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-md);
   padding: 12px 14px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-  z-index: 20;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+  z-index: 25;
 }
 
 .popoverHeader {
@@ -222,7 +281,7 @@
 }
 
 .popoverTitle {
-  font-size: 0.8125rem;
+  font-size: 0.825rem;
   font-weight: 700;
   color: #ffffff;
 }
@@ -230,14 +289,18 @@
 .popoverClose {
   background: transparent;
   border: none;
-  color: var(--text-muted);
+  color: var(--text-dim);
   cursor: pointer;
   padding: 0;
 }
 
+.popoverClose:hover {
+  color: #ffffff;
+}
+
 .popoverDesc {
-  font-size: 0.75rem;
-  line-height: 1.45;
+  font-size: 0.775rem;
+  line-height: 1.5;
   color: #cbd5e1;
   margin: 0;
 }

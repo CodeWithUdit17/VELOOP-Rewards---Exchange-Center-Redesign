@@ -29,58 +29,43 @@ const ExchangeCard = ({
 
   // Determine which visual illustration to render
   const renderVisual = () => {
-    switch (visualType) {
-      case 'gem-cluster':
-        return (
-          <div
-            className={styles.visualHalo}
-            style={{
-              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 70%)',
-              border: '1px solid rgba(192, 132, 252, 0.25)',
-            }}
-          >
-            <GemIcon size={44} />
-          </div>
-        );
-      case 'reward-chest':
-        return (
-          <div
-            className={styles.visualHalo}
-            style={{
-              background: 'radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, transparent 70%)',
-              border: '1px solid rgba(129, 140, 248, 0.25)',
-            }}
-          >
-            <VaultChestIcon size={42} />
-          </div>
-        );
-      case 'crystal-crown':
-        return (
-          <div
-            className={styles.visualHalo}
-            style={{
-              background: 'radial-gradient(circle, rgba(251, 191, 36, 0.22) 0%, transparent 70%)',
-              border: '1px solid rgba(251, 191, 36, 0.3)',
-            }}
-          >
-            <CrownRewardIcon size={44} />
-          </div>
-        );
-      case 'vault':
-      case 'mega-vault':
-      default:
-        return (
-          <div
-            className={styles.visualHalo}
-            style={{
-              background: 'radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 70%)',
-              border: '1px solid rgba(56, 189, 248, 0.25)',
-            }}
-          >
-            <VECoinIcon size={44} />
-          </div>
-        );
+    let imgPath = '/assets/card1_purple.png';
+    let haloColor = 'rgba(139, 92, 246, 0.25)';
+    let haloBorder = 'rgba(139, 92, 246, 0.35)';
+
+    if (id === 'exchange-02' || visualType === 'reward-chest') {
+      imgPath = '/assets/card2_blue.png';
+      haloColor = 'rgba(56, 189, 248, 0.22)';
+      haloBorder = 'rgba(56, 189, 248, 0.35)';
+    } else if (id === 'exchange-03' || visualType === 'vault') {
+      imgPath = '/assets/card3_green.png';
+      haloColor = 'rgba(16, 185, 129, 0.22)';
+      haloBorder = 'rgba(16, 185, 129, 0.35)';
+    } else if (id === 'exchange-04' || visualType === 'crystal-crown') {
+      imgPath = '/assets/card4_gold.png';
+      haloColor = 'rgba(245, 158, 11, 0.22)';
+      haloBorder = 'rgba(245, 158, 11, 0.35)';
+    } else if (id === 'exchange-05' || visualType === 'mega-vault') {
+      imgPath = '/assets/chest_rewards.png';
+      haloColor = 'rgba(245, 158, 11, 0.25)';
+      haloBorder = 'rgba(245, 158, 11, 0.4)';
     }
+
+    return (
+      <div
+        className={styles.visualHalo}
+        style={{
+          background: `radial-gradient(circle, ${haloColor} 0%, transparent 72%)`,
+          borderColor: haloBorder,
+        }}
+      >
+        <img
+          src={imgPath}
+          alt={`${tierName} visual`}
+          className={styles.visualImg}
+        />
+      </div>
+    );
   };
 
   // Badge CSS modifier

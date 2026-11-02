@@ -1,8 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layers, Lightbulb } from 'lucide-react';
+import { Layers, Lightbulb, Sparkles } from 'lucide-react';
 import { howExchangeWorksSteps } from '../../data/exchangeData';
 import styles from './HowExchangeWorks.module.css';
+
+const stepIcons = [
+  '/assets/step1_earn.png',
+  '/assets/step2_choose.png',
+  '/assets/step3_review.png',
+  '/assets/step4_confirm.png',
+  '/assets/step5_receive.png',
+];
 
 const HowExchangeWorks = () => {
   return (
@@ -29,8 +37,16 @@ const HowExchangeWorks = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: idx * 0.08 }}
+            whileHover={{ y: -3 }}
           >
-            <span className={styles.stepNumber}>{step.stepNumber}</span>
+            <div className={styles.nodeCircle}>
+              <img
+                src={stepIcons[idx] || '/assets/step1_earn.png'}
+                alt={`Step ${step.stepNumber}`}
+                className={styles.nodeImg}
+              />
+            </div>
+            <div className={styles.stepNumberBadge}>Step {step.stepNumber}</div>
             <h3 className={styles.stepTitle}>{step.title}</h3>
             <p className={styles.stepDesc}>{step.description}</p>
           </motion.div>

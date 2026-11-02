@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info, X, ArrowUpRight, Wallet, UserCheck, Sparkles } from 'lucide-react';
-import { GemIcon, VECoinIcon } from '../common/RewardIcons';
+import { Info, X, ArrowUpRight, Wallet, Sparkles, TrendingUp, CheckCircle } from 'lucide-react';
 import { platformGlossary } from '../../data/exchangeData';
 import styles from './BalanceOverview.module.css';
 
@@ -18,23 +17,17 @@ const BalanceOverview = ({
   };
 
   return (
-    <section className={styles.balanceContainer} aria-label="Current Balances">
-      {/* Header bar with user profile indicators */}
+    <section className={styles.balanceContainer} aria-label="Current Balances and Exchange Rates">
+      {/* Section Header */}
       <div className={styles.sectionHeader}>
         <div className={styles.sectionTitle}>
-          <Wallet size={16} />
-          <span>Reward Balances</span>
+          <Wallet size={16} className={styles.titleIcon} />
+          <span>Your Reward Balances</span>
         </div>
 
-        <div className={styles.userBadgeRow}>
-          <div className={styles.userTag}>
-            <UserCheck size={13} style={{ color: '#38bdf8' }} />
-            <span>{userData.name || 'Hassan'}</span>
-            <span className={styles.userLevel}>({userData.level || 'Lvl 7'})</span>
-          </div>
-          <div className={styles.userTag} style={{ display: 'none' }}>
-            <span>ID: {userData.veloopId || '784591'}</span>
-          </div>
+        <div className={styles.liveRateTag}>
+          <TrendingUp size={13} className={styles.rateIcon} />
+          <span>Guaranteed Yield Rate: 1 Gem = 4.55 — 5.39 VEs</span>
         </div>
       </div>
 
@@ -46,6 +39,8 @@ const BalanceOverview = ({
           whileHover={{ y: -3 }}
           transition={{ duration: 0.2 }}
         >
+          <div className={styles.cardGlowPurple} />
+
           <div className={styles.cardTopRow}>
             <div className={styles.labelGroup}>
               <span className={styles.cardLabel}>Available Gems</span>
@@ -60,21 +55,21 @@ const BalanceOverview = ({
               </button>
             </div>
 
-            <div className={`${styles.iconWrapper} ${styles.gemsIconBg}`}>
-              <GemIcon size={32} />
+            <div className={styles.iconBoxPurple}>
+              <img src="/assets/gem_purple.png" alt="Gems" className={styles.balance3dIcon} />
             </div>
           </div>
 
           <div className={styles.valueRow}>
             <span className={styles.balanceValue}>{Number(gems).toLocaleString()}</span>
-            <span className={styles.balanceUnit}>Gems</span>
+            <span className={styles.balanceUnitGems}>Gems</span>
           </div>
 
           <div className={styles.cardFooter}>
-            <span className={styles.subText}>Earned through platform tasks</span>
+            <span className={styles.subText}>Earned through platform quests & achievements</span>
             <button
               type="button"
-              className={styles.actionLink}
+              className={styles.actionLinkPurple}
               onClick={onEarnMoreGems}
             >
               <span>Earn More</span>
@@ -115,6 +110,8 @@ const BalanceOverview = ({
           whileHover={{ y: -3 }}
           transition={{ duration: 0.2 }}
         >
+          <div className={styles.cardGlowGold} />
+
           <div className={styles.cardTopRow}>
             <div className={styles.labelGroup}>
               <span className={styles.cardLabel}>Available VEs</span>
@@ -129,21 +126,21 @@ const BalanceOverview = ({
               </button>
             </div>
 
-            <div className={`${styles.iconWrapper} ${styles.vesIconBg}`}>
-              <VECoinIcon size={32} />
+            <div className={styles.iconBoxGold}>
+              <img src="/assets/coin_ve.png" alt="VEs" className={styles.balance3dIcon} />
             </div>
           </div>
 
           <div className={styles.valueRow}>
             <span className={styles.balanceValue}>{Number(ves).toLocaleString()}</span>
-            <span className={styles.balanceUnit}>VEs</span>
+            <span className={styles.balanceUnitVEs}>VEs</span>
           </div>
 
           <div className={styles.cardFooter}>
-            <span className={styles.subText}>Virtual currency for redemptions</span>
-            <div className={styles.subText} style={{ color: '#fbbf24', fontWeight: 600 }}>
-              <Sparkles size={12} style={{ display: 'inline', marginRight: 4 }} />
-              Active Balance
+            <span className={styles.subText}>Virtual rewards ready for catalog redemptions</span>
+            <div className={styles.statusVerified}>
+              <CheckCircle size={13} />
+              <span>Verified Balance</span>
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   LayoutDashboard,
   Wallet,
@@ -6,9 +6,11 @@ import {
   RefreshCw,
   Users,
   History,
-  LifeBuoy,
+  Bell,
+  Menu,
+  X,
+  Sparkles,
 } from 'lucide-react';
-import { GemIcon, VECoinIcon } from '../common/RewardIcons';
 import styles from './Navbar.module.css';
 
 const Navbar = ({
@@ -17,96 +19,136 @@ const Navbar = ({
   availableVEs = 3850,
   activeTab = 'exchange',
   onSelectTab,
+  onOpenNotifications,
 }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'wallet', label: 'Wallet', icon: Wallet },
+    { id: 'exchange', label: 'Exchange Center', icon: RefreshCw },
+    { id: 'earn', label: 'Level Up & Earn', icon: Zap },
+    { id: 'referrals', label: 'Referrals', icon: Users },
+    { id: 'history', label: 'History', icon: History },
+  ];
+
+  const handleNavClick = (id) => {
+    if (onSelectTab) onSelectTab(id);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className={styles.navbar}>
       <div className={styles.navContainer}>
-        {/* Brand */}
-        <div className={styles.brandGroup}>
-          <div className={styles.brandLogo}>V</div>
-          <div className={styles.brandName}>
-            <span>VELOP</span>
-            <span className={styles.brandTagline}>Rewards Vault</span>
-          </div>
+        {/* Brand Logo */}
+        <div className={styles.brandGroup} onClick={() => handleNavClick('exchange')} role="button" tabIndex={0}>
+          <img
+            src="/assets/veloop_logo.png"
+            alt="VELOP REWARDS"
+            className={styles.brandLogoImg}
+          />
+          <span className={styles.brandBadge}>
+            <Sparkles size={11} />
+            Exchange Center
+          </span>
         </div>
 
-        {/* Navigation items */}
+        {/* Desktop Navigation Links */}
         <nav className={styles.navLinks} aria-label="Main Navigation">
-          <button
-            type="button"
-            className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.navItemActive : ''}`}
-            onClick={() => onSelectTab && onSelectTab('dashboard')}
-          >
-            <LayoutDashboard size={15} />
-            <span>Dashboard</span>
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navItem} ${activeTab === 'wallet' ? styles.navItemActive : ''}`}
-            onClick={() => onSelectTab && onSelectTab('wallet')}
-          >
-            <Wallet size={15} />
-            <span>Wallet</span>
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navItem} ${activeTab === 'exchange' ? styles.navItemActive : ''}`}
-            onClick={() => onSelectTab && onSelectTab('exchange')}
-          >
-            <RefreshCw size={15} />
-            <span>Exchange Center</span>
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navItem} ${activeTab === 'earn' ? styles.navItemActive : ''}`}
-            onClick={() => onSelectTab && onSelectTab('earn')}
-          >
-            <Zap size={15} />
-            <span>Level Up & Earn</span>
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navItem} ${activeTab === 'referrals' ? styles.navItemActive : ''}`}
-            onClick={() => onSelectTab && onSelectTab('referrals')}
-          >
-            <Users size={15} />
-            <span>Referrals</span>
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navItem} ${activeTab === 'history' ? styles.navItemActive : ''}`}
-            onClick={() => onSelectTab && onSelectTab('history')}
-          >
-            <History size={15} />
-            <span>History</span>
-          </button>
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
+                onClick={() => handleNavClick(item.id)}
+              >
+                <Icon size={15} />
+                <span>{item.label}</span>
+                {isActive && <span className={styles.activePillDot} />}
+              </button>
+            );
+          })}
         </nav>
 
-        {/* Right Controls & Fast Balances */}
+        {/* Right Controls & Balances */}
         <div className={styles.rightControls}>
-          <div className={styles.quickBalancePill} title="Quick Gem Balance">
-            <GemIcon size={16} />
-            <span style={{ color: '#c084fc' }}>{availableGems.toLocaleString()}</span>
+          {/* Gems Quick Pill */}
+          <div className={`${styles.quickBalancePill} ${styles.gemsPill}`} title="Available Reward Gems">
+            <img src="/assets/gem_purple.png" alt="Gems" className={styles.pillIcon} />
+            <span className={styles.pillValueGems}>{Number(availableGems).toLocaleString()}</span>
+            <span className={styles.pillUnit}>Gems</span>
           </div>
 
-          <div className={styles.quickBalancePill} title="Quick VE Balance">
-            <VECoinIcon size={16} />
-            <span style={{ color: '#fbbf24' }}>{availableVEs.toLocaleString()}</span>
+          {/* VEs Quick Pill */}
+          <div className={`${styles.quickBalancePill} ${styles.vesPill}`} title="Available VE Credits">
+            <img src="/assets/coin_ve.png" alt="VEs" className={styles.pillIcon} />
+            <span className={styles.pillValueVEs}>{Number(availableVEs).toLocaleString()}</span>
+            <span className={styles.pillUnit}>VEs</span>
           </div>
 
-          <div className={styles.userProfileBtn} title={`Logged in as ${userData.name || 'Hassan'}`}>
-            <div className={styles.avatarCircle}>
-              {(userData.name || 'H')[0].toUpperCase()}
+          {/* Notification Bell */}
+          <button
+            type="button"
+            className={styles.bellBtn}
+            onClick={onOpenNotifications}
+            aria-label="View notifications"
+          >
+            <Bell size={16} />
+            <span className={styles.bellDot} />
+          </button>
+
+          {/* User Profile */}
+          <div className={styles.userProfileBtn} title={`Logged in as ${userData.name || 'Hasan'} (${userData.level || 'Level 7'})`}>
+            <div className={styles.avatarWrapper}>
+              <img
+                src="/assets/user_avatar.png"
+                alt="Avatar"
+                className={styles.avatarImg}
+              />
             </div>
-            <span className={styles.userName}>{userData.name || 'Hassan'}</span>
+            <div className={styles.userInfo}>
+              <span className={styles.userName}>{userData.name || 'Hasan'}</span>
+              <span className={styles.userLevelBadge}>{userData.level || 'Lvl 7'}</span>
+            </div>
           </div>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            type="button"
+            className={styles.mobileMenuToggle}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Drawer Navigation */}
+      {mobileMenuOpen && (
+        <div className={styles.mobileDrawer}>
+          <div className={styles.mobileNavList}>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`${styles.mobileNavItem} ${isActive ? styles.mobileNavItemActive : ''}`}
+                  onClick={() => handleNavClick(item.id)}
+                >
+                  <Icon size={18} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
