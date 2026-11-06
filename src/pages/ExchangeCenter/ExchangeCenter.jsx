@@ -15,6 +15,7 @@ import ExchangeErrorState from '../../components/exchange/ExchangeErrorState';
 import ExchangeEmptyState from '../../components/exchange/ExchangeEmptyState';
 import EarnMoreGemsModal from '../../components/exchange/EarnMoreGemsModal';
 import GlossaryModal from '../../components/exchange/GlossaryModal';
+import DemoTools from '../../components/common/DemoTools';
 
 import {
   initialUserData,
@@ -280,44 +281,40 @@ const ExchangeCenter = () => {
         onClose={() => setIsGlossaryOpen(false)}
       />
 
-      {/* Discreet Evaluator Tool Menu (Bottom-Right) */}
-      <aside className={styles.devDock} aria-label="Developer testing tools">
-        <button
-          type="button"
-          className={styles.devDockBtn}
-          onClick={() => setIsDevMenuOpen(!isDevMenuOpen)}
-        >
-          <Settings size={12} />
-          <span>Demo Tools</span>
-        </button>
-
-        {isDevMenuOpen && (
-          <div className={styles.devDockMenu}>
-            <button type="button" className={styles.devItem} onClick={() => { setViewState('normal'); setIsDevMenuOpen(false); }}>
-              Normal Mode
-            </button>
-            <button type="button" className={styles.devItem} onClick={() => { setViewState('loading'); setIsDevMenuOpen(false); }}>
-              Test Loader
-            </button>
-            <button type="button" className={styles.devItem} onClick={() => { setViewState('error'); setIsDevMenuOpen(false); }}>
-              Test Error State
-            </button>
-            <button type="button" className={styles.devItem} onClick={() => { setViewState('empty'); setIsDevMenuOpen(false); }}>
-              Test Empty State
-            </button>
-            <button
-              type="button"
-              className={styles.devItem}
-              onClick={() => {
-                setAvailableGems(availableGems === 12 ? 420 : 12);
-                setIsDevMenuOpen(false);
-              }}
-            >
-              {availableGems === 12 ? 'Reset (420 Gems)' : 'Test Low Bal (12)'}
-            </button>
-          </div>
-        )}
-      </aside>
+      {/* Evaluator & Demo Control Hub */}
+      <DemoTools
+        isOpen={isDevMenuOpen}
+        onToggle={() => setIsDevMenuOpen(!isDevMenuOpen)}
+        viewState={viewState}
+        setViewState={setViewState}
+        availableGems={availableGems}
+        setAvailableGems={setAvailableGems}
+        availableVEs={availableVEs}
+        setAvailableVEs={setAvailableVEs}
+        onTriggerConfirmModal={() => {
+          setSelectedOption(options[0]);
+          setIsDevMenuOpen(false);
+        }}
+        onTriggerSuccessModal={() => {
+          setCompletedConversion({
+            requiredGems: 28,
+            receiveVEs: 151,
+            tierName: 'Daily Gem Conversion',
+            txRef: 'VLP-' + Math.floor(10000 + Math.random() * 90000),
+          });
+          setIsDevMenuOpen(false);
+        }}
+        onOpenEarnGems={() => {
+          setIsEarnGemsOpen(true);
+          setIsDevMenuOpen(false);
+        }}
+        onOpenGlossary={() => {
+          setIsGlossaryOpen(true);
+          setIsDevMenuOpen(false);
+        }}
+        history={history}
+        setHistory={setHistory}
+      />
     </div>
   );
 };
