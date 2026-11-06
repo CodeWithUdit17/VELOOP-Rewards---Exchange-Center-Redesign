@@ -2,306 +2,400 @@
   margin-bottom: 2.25rem;
 }
 
-.sectionHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.sectionTitle {
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.titleIcon {
-  color: var(--brand-purple-light);
-}
-
-.liveRateTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(30, 35, 58, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 5px 14px;
-  border-radius: var(--radius-full);
-  font-size: 0.775rem;
-  font-weight: 600;
-  color: var(--brand-gold-light);
-}
-
-.rateIcon {
-  color: var(--brand-gold-light);
-}
-
-.cardsGrid {
+.hudGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
+  align-items: stretch;
 }
 
-@media (min-width: 768px) {
-  .cardsGrid {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 992px) {
+  .hudGrid {
+    grid-template-columns: 1fr 280px 1fr;
   }
 }
 
-.balanceCard {
+.hudPod {
   position: relative;
-  background: linear-gradient(145deg, rgba(30, 35, 58, 0.8) 0%, rgba(22, 25, 42, 0.95) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  padding: 1.6rem 1.8rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
+  background: linear-gradient(135deg, rgba(28, 33, 58, 0.82) 0%, rgba(18, 21, 38, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  backdrop-filter: blur(14px);
+  overflow: hidden;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  transition: all 0.25s ease;
 }
 
-.balanceCard:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+.hudPod:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.6);
 }
 
-.gemsCard {
-  border-color: rgba(139, 92, 246, 0.2);
+.gemsPod {
+  border-color: rgba(139, 92, 246, 0.28);
 }
 
-.gemsCard:hover {
-  box-shadow: 0 16px 36px rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.4);
+.gemsPod:hover {
+  border-color: rgba(139, 92, 246, 0.5);
 }
 
-.cardGlowPurple {
+.vesPod {
+  border-color: rgba(245, 158, 11, 0.28);
+}
+
+.vesPod:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.podGlowPurple {
   position: absolute;
   top: -40px;
   right: -40px;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 70%);
-  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+  filter: blur(30px);
   pointer-events: none;
 }
 
-.vesCard {
-  border-color: rgba(245, 158, 11, 0.2);
-}
-
-.vesCard:hover {
-  box-shadow: 0 16px 36px rgba(245, 158, 11, 0.2);
-  border-color: rgba(245, 158, 11, 0.4);
-}
-
-.cardGlowGold {
+.podGlowGold {
   position: absolute;
   top: -40px;
   right: -40px;
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
-  border-radius: 50%;
+  filter: blur(30px);
   pointer-events: none;
 }
 
-.cardTopRow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.labelGroup {
+.podHeader {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
 }
 
-.cardLabel {
-  font-size: 0.825rem;
-  font-weight: 700;
-  color: var(--text-secondary);
+.podLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.podTag {
+  font-size: 0.725rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin: 0;
+  letter-spacing: 0.08em;
+  color: var(--brand-purple-light);
 }
 
-.infoButton {
-  background: transparent;
+.podTagGold {
+  font-size: 0.725rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fbbf24;
+}
+
+.infoBtn {
+  background: none;
   border: none;
-  color: var(--text-dim);
+  color: var(--text-muted);
   cursor: pointer;
   padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.infoBtn:hover {
+  color: #ffffff;
+}
+
+.levelBadge {
+  font-size: 0.675rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--brand-purple-light);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  letter-spacing: 0.05em;
+}
+
+.verifiedPill {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.2s ease;
+  gap: 5px;
+  font-size: 0.675rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-.infoButton:hover {
-  color: #ffffff;
-  transform: scale(1.1);
+.podMain {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
-.iconBoxPurple {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, rgba(30, 35, 58, 0.6) 100%);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+.iconChamberPurple,
+.iconChamberGold {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.25);
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.25s ease;
 }
 
-.iconBoxGold {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, rgba(30, 35, 58, 0.6) 100%);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+.hudPod:hover .iconChamberPurple,
+.hudPod:hover .iconChamberGold {
+  transform: scale(1.06);
 }
 
-.balance3dIcon {
-  width: 32px;
-  height: 32px;
+.iconChamberPurple {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, rgba(20, 16, 38, 0.8) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.25);
+}
+
+.iconChamberGold {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(35, 24, 10, 0.8) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.25);
+}
+
+.icon3d {
+  width: 52px;
+  height: 52px;
   object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+.balanceData {
+  display: flex;
+  flex-direction: column;
 }
 
 .valueRow {
   display: flex;
   align-items: baseline;
-  gap: 10px;
-  margin-bottom: 0.5rem;
+  gap: 8px;
 }
 
-.balanceValue {
-  font-size: 2.85rem;
-  font-weight: 800;
+.numericValue {
+  font-size: 2.25rem;
+  font-weight: 900;
   letter-spacing: -0.03em;
-  line-height: 1;
   color: #ffffff;
-  font-variant-numeric: tabular-nums;
+  line-height: 1;
 }
 
-.balanceUnitGems {
-  font-size: 1.15rem;
+.valueGold {
+  color: #fbbf24;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+}
+
+.unitGems {
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--brand-purple-light);
+  letter-spacing: 0.05em;
 }
 
-.balanceUnitVEs {
-  font-size: 1.15rem;
+.unitVEs {
+  font-size: 0.95rem;
   font-weight: 800;
-  color: var(--brand-gold-light);
+  color: #fde047;
+  letter-spacing: 0.05em;
 }
 
-.cardFooter {
+.subtext {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.podFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 0.85rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  margin-top: 0.75rem;
 }
 
-.subText {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.actionLinkPurple {
-  font-size: 0.8rem;
-  font-weight: 700;
+.earnBtn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  color: var(--brand-purple-light);
-  background: rgba(139, 92, 246, 0.15);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: var(--radius-full);
-  padding: 4px 12px;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(139, 92, 246, 0.16);
+  color: #ffffff;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  font-size: 0.775rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.actionLinkPurple:hover {
-  background: rgba(139, 92, 246, 0.28);
-  color: #ffffff;
-  border-color: rgba(139, 92, 246, 0.5);
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+.earnBtn:hover {
+  background: rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.3);
 }
 
-.statusVerified {
-  font-size: 0.775rem;
-  font-weight: 600;
-  color: #34d399;
+.redemptionReadyTag {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: #cbd5e1;
 }
 
-/* Tooltip Popup */
-.popoverCard {
+/* Center Conduit Bridge */
+.conduitBridge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conduitCore {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(135deg, rgba(22, 26, 46, 0.85) 0%, rgba(15, 17, 30, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.conduitPulseRing {
   position: absolute;
-  top: 50px;
-  left: 20px;
-  right: 20px;
-  background: #1f253e;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
-  z-index: 25;
+  inset: -1px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  pointer-events: none;
+  animation: pulseBorder 3s infinite ease-in-out;
 }
 
-.popoverHeader {
+@keyframes pulseBorder {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.conduitIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.18);
+  color: #c084fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.65rem;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.conduitInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.conduitRateLabel {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+}
+
+.conduitRateVal {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.conduitStatus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.685rem;
+  font-weight: 600;
+  color: #34d399;
+  margin-top: 4px;
+}
+
+.liveGreenDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+/* Tooltip Card */
+.tooltipCard {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 10;
+  background: rgba(18, 20, 36, 0.96);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+}
+
+.tooltipHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.popoverTitle {
-  font-size: 0.825rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #ffffff;
 }
 
-.popoverClose {
-  background: transparent;
+.tooltipHeader button {
+  background: none;
   border: none;
-  color: var(--text-dim);
+  color: var(--text-muted);
   cursor: pointer;
   padding: 0;
 }
 
-.popoverClose:hover {
-  color: #ffffff;
-}
-
-.popoverDesc {
-  font-size: 0.775rem;
-  line-height: 1.5;
-  color: #cbd5e1;
+.tooltipCard p {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
   margin: 0;
 }
-

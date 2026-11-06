@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info, X, ArrowUpRight, Wallet, Sparkles, TrendingUp, CheckCircle } from 'lucide-react';
+import { Info, X, Plus, TrendingUp, CheckCircle2, Zap } from 'lucide-react';
 import { platformGlossary } from '../../data/exchangeData';
 import styles from './BalanceOverview.module.css';
 
@@ -17,155 +17,154 @@ const BalanceOverview = ({
   };
 
   return (
-    <section className={styles.balanceContainer} aria-label="Current Balances and Exchange Rates">
-      {/* Section Header */}
-      <div className={styles.sectionHeader}>
-        <div className={styles.sectionTitle}>
-          <Wallet size={16} className={styles.titleIcon} />
-          <span>Your Reward Balances</span>
-        </div>
-
-        <div className={styles.liveRateTag}>
-          <TrendingUp size={13} className={styles.rateIcon} />
-          <span>Guaranteed Yield Rate: 1 Gem = 4.55 — 5.39 VEs</span>
-        </div>
-      </div>
-
-      {/* Dual Balance Cards: Gems and VEs */}
-      <div className={styles.cardsGrid}>
-        {/* Gems Card */}
+    <section className={styles.balanceContainer} aria-label="Current Balances and Exchange Conduit">
+      <div className={styles.hudGrid}>
+        {/* Pod 1: Available Gems */}
         <motion.div
-          className={`${styles.balanceCard} ${styles.gemsCard}`}
+          className={`${styles.hudPod} ${styles.gemsPod}`}
           whileHover={{ y: -3 }}
           transition={{ duration: 0.2 }}
         >
-          <div className={styles.cardGlowPurple} />
+          <div className={styles.podGlowPurple} />
 
-          <div className={styles.cardTopRow}>
-            <div className={styles.labelGroup}>
-              <span className={styles.cardLabel}>Available Gems</span>
+          <div className={styles.podHeader}>
+            <div className={styles.podLabelRow}>
+              <span className={styles.podTag}>ACTIVITY STASH</span>
               <button
                 type="button"
-                className={styles.infoButton}
+                className={styles.infoBtn}
                 onClick={() => toggleTooltip('gems')}
-                aria-label="Information about Gems"
-                title="What are Gems?"
+                aria-label="What are Gems?"
               >
-                <Info size={14} />
+                <Info size={13} />
               </button>
             </div>
+            <span className={styles.levelBadge}>
+              LVL {userData?.level ? userData.level.replace(/[^0-9]/g, '') || '7' : '7'}
+            </span>
+          </div>
 
-            <div className={styles.iconBoxPurple}>
-              <img src="/assets/gem_purple.png" alt="Gems" className={styles.balance3dIcon} />
+          <div className={styles.podMain}>
+            <div className={styles.iconChamberPurple}>
+              <img src="/assets/gem_purple.png" alt="Gems" className={styles.icon3d} />
+            </div>
+            <div className={styles.balanceData}>
+              <div className={styles.valueRow}>
+                <span className={styles.numericValue}>{Number(gems).toLocaleString()}</span>
+                <span className={styles.unitGems}>GEMS</span>
+              </div>
+              <span className={styles.subtext}>Available for conversion</span>
             </div>
           </div>
 
-          <div className={styles.valueRow}>
-            <span className={styles.balanceValue}>{Number(gems).toLocaleString()}</span>
-            <span className={styles.balanceUnitGems}>Gems</span>
-          </div>
-
-          <div className={styles.cardFooter}>
-            <span className={styles.subText}>Earned through platform quests & achievements</span>
+          <div className={styles.podFooter}>
             <button
               type="button"
-              className={styles.actionLinkPurple}
+              className={styles.earnBtn}
               onClick={onEarnMoreGems}
             >
-              <span>Earn More</span>
-              <ArrowUpRight size={13} />
+              <Plus size={14} />
+              <span>Earn More Gems</span>
             </button>
           </div>
 
-          {/* Interactive Info Popover */}
+          {/* Tooltip */}
           <AnimatePresence>
             {activeTooltip === 'gems' && (
               <motion.div
-                className={styles.popoverCard}
-                initial={{ opacity: 0, scale: 0.95, y: -6 }}
+                className={styles.tooltipCard}
+                initial={{ opacity: 0, scale: 0.95, y: -4 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -6 }}
-                transition={{ duration: 0.15 }}
+                exit={{ opacity: 0, scale: 0.95, y: -4 }}
               >
-                <div className={styles.popoverHeader}>
-                  <span className={styles.popoverTitle}>{platformGlossary.gems.title}</span>
-                  <button
-                    type="button"
-                    className={styles.popoverClose}
-                    onClick={() => setActiveTooltip(null)}
-                    aria-label="Close"
-                  >
-                    <X size={14} />
-                  </button>
+                <div className={styles.tooltipHeader}>
+                  <span>{platformGlossary.gems.title}</span>
+                  <button type="button" onClick={() => setActiveTooltip(null)}><X size={13} /></button>
                 </div>
-                <p className={styles.popoverDesc}>{platformGlossary.gems.description}</p>
+                <p>{platformGlossary.gems.description}</p>
               </motion.div>
             )}
           </AnimatePresence>
         </motion.div>
 
-        {/* VEs Card */}
+        {/* Center Conduit: Live Exchange Rate Engine */}
+        <div className={styles.conduitBridge}>
+          <div className={styles.conduitCore}>
+            <div className={styles.conduitPulseRing} />
+            <div className={styles.conduitIcon}>
+              <TrendingUp size={18} />
+            </div>
+            <div className={styles.conduitInfo}>
+              <span className={styles.conduitRateLabel}>LIVE REWARD RATIO</span>
+              <div className={styles.conduitRateVal}>1 Gem ≈ 4.55 — 5.39 VEs</div>
+              <span className={styles.conduitStatus}>
+                <span className={styles.liveGreenDot} />
+                Guaranteed Fixed Multipliers
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Pod 2: Available VEs */}
         <motion.div
-          className={`${styles.balanceCard} ${styles.vesCard}`}
+          className={`${styles.hudPod} ${styles.vesPod}`}
           whileHover={{ y: -3 }}
           transition={{ duration: 0.2 }}
         >
-          <div className={styles.cardGlowGold} />
+          <div className={styles.podGlowGold} />
 
-          <div className={styles.cardTopRow}>
-            <div className={styles.labelGroup}>
-              <span className={styles.cardLabel}>Available VEs</span>
+          <div className={styles.podHeader}>
+            <div className={styles.podLabelRow}>
+              <span className={styles.podTagGold}>SPENDABLE TREASURY</span>
               <button
                 type="button"
-                className={styles.infoButton}
+                className={styles.infoBtn}
                 onClick={() => toggleTooltip('ves')}
-                aria-label="Information about VEs"
-                title="What are VEs?"
+                aria-label="What are VEs?"
               >
-                <Info size={14} />
+                <Info size={13} />
               </button>
             </div>
+            <span className={styles.verifiedPill}>
+              <CheckCircle2 size={12} />
+              <span>Verified Ledger</span>
+            </span>
+          </div>
 
-            <div className={styles.iconBoxGold}>
-              <img src="/assets/coin_ve.png" alt="VEs" className={styles.balance3dIcon} />
+          <div className={styles.podMain}>
+            <div className={styles.iconChamberGold}>
+              <img src="/assets/coin_ve.png" alt="VEs" className={styles.icon3d} />
+            </div>
+            <div className={styles.balanceData}>
+              <div className={styles.valueRow}>
+                <span className={`${styles.numericValue} ${styles.valueGold}`}>{Number(ves).toLocaleString()}</span>
+                <span className={styles.unitVEs}>VEs</span>
+              </div>
+              <span className={styles.subtext}>Redeemable for catalog perks</span>
             </div>
           </div>
 
-          <div className={styles.valueRow}>
-            <span className={styles.balanceValue}>{Number(ves).toLocaleString()}</span>
-            <span className={styles.balanceUnitVEs}>VEs</span>
-          </div>
-
-          <div className={styles.cardFooter}>
-            <span className={styles.subText}>Virtual rewards ready for catalog redemptions</span>
-            <div className={styles.statusVerified}>
-              <CheckCircle size={13} />
-              <span>Verified Balance</span>
+          <div className={styles.podFooter}>
+            <div className={styles.redemptionReadyTag}>
+              <Zap size={13} style={{ color: '#fbbf24' }} />
+              <span>Instant Catalog Ready</span>
             </div>
           </div>
 
-          {/* Interactive Info Popover */}
+          {/* Tooltip */}
           <AnimatePresence>
             {activeTooltip === 'ves' && (
               <motion.div
-                className={styles.popoverCard}
-                initial={{ opacity: 0, scale: 0.95, y: -6 }}
+                className={styles.tooltipCard}
+                initial={{ opacity: 0, scale: 0.95, y: -4 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -6 }}
-                transition={{ duration: 0.15 }}
+                exit={{ opacity: 0, scale: 0.95, y: -4 }}
               >
-                <div className={styles.popoverHeader}>
-                  <span className={styles.popoverTitle}>{platformGlossary.ves.title}</span>
-                  <button
-                    type="button"
-                    className={styles.popoverClose}
-                    onClick={() => setActiveTooltip(null)}
-                    aria-label="Close"
-                  >
-                    <X size={14} />
-                  </button>
+                <div className={styles.tooltipHeader}>
+                  <span>{platformGlossary.ves.title}</span>
+                  <button type="button" onClick={() => setActiveTooltip(null)}><X size={13} /></button>
                 </div>
-                <p className={styles.popoverDesc}>{platformGlossary.ves.description}</p>
+                <p>{platformGlossary.ves.description}</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -176,4 +175,3 @@ const BalanceOverview = ({
 };
 
 export default BalanceOverview;
-

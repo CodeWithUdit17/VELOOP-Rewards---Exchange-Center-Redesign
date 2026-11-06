@@ -131,11 +131,11 @@ const ExchangeCenter = () => {
             <div>
               <div className={styles.sectionBadge}>
                 <Sparkles size={12} />
-                <span>Verified Reward Tiers</span>
+                <span>REWARD TIERS</span>
               </div>
               <h2 className={styles.conversionsTitle}>Available Conversions</h2>
               <p className={styles.conversionsSub}>
-                Choose the conversion tier that fits your balance. Guaranteed 100% instant reward settlement.
+                Select a multiplier tier to convert your Gems into instant spendable VEs.
               </p>
             </div>
 
@@ -184,8 +184,12 @@ const ExchangeCenter = () => {
           )}
         </section>
 
-        {/* Mid Reward Incentive Banner */}
-        <MidRewardBanner />
+        {/* Mid Reward Incentive Banner (VIP Milestone) */}
+        <MidRewardBanner
+          onSelectExchange={handleSelectExchange}
+          availableGems={availableGems}
+          onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+        />
 
         {/* 5-Step Process Flow */}
         <div id="how-it-works-section">
