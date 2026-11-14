@@ -12,6 +12,7 @@ export const initialUserData = {
   veloopId: "784591",
   availableGems: 420,
   availableVEs: 3850,
+  availableSVEs: 1250,
   tier: "Gold Contributor",
   rewardsEarnedThisMonth: 1280,
   monthlyConversionsCount: 6,
@@ -213,6 +214,11 @@ export const platformGlossary = {
     term: "VEs",
     title: "What are VEs?",
     description: "VEs are VELOOP Rewards' official virtual reward currency. They can be redeemed for gift vouchers, premium merchandise, exclusive perks, and partner offers according to platform rules.",
+  },
+  sves: {
+    term: "SVEs",
+    title: "What are SVEs?",
+    description: "SVEs (Special VEs) are staked and VIP-tier reward entitlements earned through loyalty streaks and platform staking. They provide an enhanced 1.25x conversion yield into spendable VEs.",
   },
   rates: {
     term: "Exchange Rates",

@@ -32,6 +32,8 @@ const DemoTools = ({
   setAvailableGems,
   availableVEs = 3850,
   setAvailableVEs,
+  availableSVEs = 1250,
+  setAvailableSVEs,
   onTriggerConfirmModal,
   onTriggerSuccessModal,
   onOpenEarnGems,
@@ -60,6 +62,7 @@ const DemoTools = ({
     setViewState('normal');
     setAvailableGems(initialUserData.availableGems);
     setAvailableVEs(initialUserData.availableVEs);
+    if (setAvailableSVEs) setAvailableSVEs(initialUserData.availableSVEs || 1250);
     setHistory(initialRecentConversions);
     triggerConfetti();
   };
@@ -231,6 +234,11 @@ const DemoTools = ({
                       <span>VEs</span>
                       <strong style={{ color: '#fbbf24' }}>{Number(availableVEs).toLocaleString()}</strong>
                     </div>
+                    <div className={styles.balDivider} />
+                    <div className={styles.balItem}>
+                      <span>SVEs</span>
+                      <strong style={{ color: '#38bdf8' }}>{Number(availableSVEs).toLocaleString()}</strong>
+                    </div>
                   </div>
 
                   <span className={styles.sectionLabel}>BALANCE PRESETS</span>
@@ -386,3 +394,4 @@ const EyeTabIcon = ({ active }) => (
 );
 
 export default DemoTools;
+

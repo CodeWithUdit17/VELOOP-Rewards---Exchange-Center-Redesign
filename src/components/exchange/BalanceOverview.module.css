@@ -1,64 +1,166 @@
 .balanceContainer {
-  margin-bottom: 2.25rem;
+  margin: 1.75rem 0 2.25rem 0;
+  position: relative;
 }
 
+/* Rate Summary Bar */
+.rateSummaryBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(18, 22, 40, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 0.65rem 1.25rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+}
+
+.rateSummaryLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.675rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.livePulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+  animation: pulseRate 2s infinite ease-in-out;
+}
+
+@keyframes pulseRate {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.rateChips {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rateChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.775rem;
+}
+
+.rateChipLabel {
+  color: var(--text-muted);
+}
+
+.rateChipValPurple {
+  color: #c084fc;
+  font-weight: 700;
+}
+
+.rateChipValCyan {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.rateChipValGreen {
+  color: #34d399;
+  font-weight: 700;
+}
+
+.chipDivider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.rateSummaryRight {
+  display: flex;
+  align-items: center;
+}
+
+.instantSettlementBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* 3-Card HUD Grid */
 .hudGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
-  align-items: stretch;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 680px) {
   .hudGrid {
-    grid-template-columns: 1fr 280px 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
+@media (min-width: 1024px) {
+  .hudGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Base Pod Card */
 .hudPod {
   position: relative;
-  background: linear-gradient(135deg, rgba(28, 33, 58, 0.82) 0%, rgba(18, 21, 38, 0.95) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(135deg, rgba(22, 26, 48, 0.82) 0%, rgba(14, 17, 34, 0.94) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
-  padding: 1.5rem 1.75rem;
+  padding: 1.35rem 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(16px);
-  transition: all 0.25s ease;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hudPod:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.65);
 }
 
-.gemsPod {
-  border-color: rgba(139, 92, 246, 0.28);
-}
-
-.gemsPod:hover {
-  border-color: rgba(139, 92, 246, 0.5);
-}
-
-.vesPod {
-  border-color: rgba(245, 158, 11, 0.28);
-}
-
-.vesPod:hover {
-  border-color: rgba(245, 158, 11, 0.5);
-}
-
+/* Ambient Glows */
 .podGlowPurple {
   position: absolute;
   top: -40px;
   right: -40px;
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
-  filter: blur(30px);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 70%);
+  filter: blur(25px);
   pointer-events: none;
 }
 
@@ -66,40 +168,59 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  width: 180px;
-  height: 180px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
   background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
-  filter: blur(30px);
+  filter: blur(25px);
   pointer-events: none;
 }
 
+.podGlowCyan {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+/* Pod Header */
 .podHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .podLabelRow {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
 }
 
 .podTag {
-  font-size: 0.725rem;
+  font-size: 0.675rem;
   font-weight: 800;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--brand-purple-light);
+  color: #c084fc;
 }
 
 .podTagGold {
-  font-size: 0.725rem;
+  font-size: 0.675rem;
   font-weight: 800;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #fbbf24;
+}
+
+.podTagCyan {
+  font-size: 0.675rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #38bdf8;
 }
 
 .infoBtn {
@@ -119,71 +240,89 @@
 }
 
 .levelBadge {
-  font-size: 0.675rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  padding: 3px 9px;
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.12);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  padding: 2px 8px;
   border-radius: var(--radius-full);
-  background: rgba(139, 92, 246, 0.15);
-  color: var(--brand-purple-light);
-  border: 1px solid rgba(139, 92, 246, 0.35);
-  letter-spacing: 0.05em;
 }
 
 .verifiedPill {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 0.675rem;
+  gap: 4px;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 3px 9px;
-  border-radius: var(--radius-full);
-  background: rgba(16, 185, 129, 0.12);
   color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
 }
 
+.vipBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* Pod Main Content */
 .podMain {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
 }
 
 .iconChamberPurple,
-.iconChamberGold {
-  width: 68px;
-  height: 68px;
+.iconChamberGold,
+.iconChamberCyan {
+  width: 58px;
+  height: 58px;
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  position: relative;
-  transition: transform 0.25s ease;
-}
-
-.hudPod:hover .iconChamberPurple,
-.hudPod:hover .iconChamberGold {
-  transform: scale(1.06);
+  border: 1px solid;
+  transition: transform 0.2s ease;
 }
 
 .iconChamberPurple {
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, rgba(20, 16, 38, 0.8) 100%);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  box-shadow: 0 0 18px rgba(139, 92, 246, 0.25);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(139, 92, 246, 0.08) 100%);
+  border-color: rgba(168, 85, 247, 0.35);
 }
 
 .iconChamberGold {
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(35, 24, 10, 0.8) 100%);
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  box-shadow: 0 0 18px rgba(245, 158, 11, 0.25);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.08) 100%);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.iconChamberCyan {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(14, 165, 233, 0.08) 100%);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.hudPod:hover .iconChamberPurple,
+.hudPod:hover .iconChamberGold,
+.hudPod:hover .iconChamberCyan {
+  transform: scale(1.08);
 }
 
 .icon3d {
-  width: 52px;
-  height: 52px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
 }
 
 .balanceData {
@@ -194,185 +333,150 @@
 .valueRow {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
 }
 
 .numericValue {
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   font-weight: 900;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   color: #ffffff;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .valueGold {
   color: #fbbf24;
-  text-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+}
+
+.valueCyan {
+  color: #38bdf8;
 }
 
 .unitGems {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 800;
-  color: var(--brand-purple-light);
-  letter-spacing: 0.05em;
+  color: #c084fc;
 }
 
 .unitVEs {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 800;
-  color: #fde047;
-  letter-spacing: 0.05em;
+  color: #fbbf24;
 }
 
-.subtext {
-  font-size: 0.775rem;
+.unitSVEs {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.conversionRateText {
+  font-size: 0.725rem;
   color: var(--text-muted);
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
+.conversionRateText strong {
+  color: #c084fc;
+}
+
+.conversionRateTextGold {
+  font-size: 0.725rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.conversionRateTextGold strong {
+  color: #fbbf24;
+}
+
+.conversionRateTextCyan {
+  font-size: 0.725rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.conversionRateTextCyan strong {
+  color: #38bdf8;
+}
+
+/* Pod Footer */
 .podFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .earnBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  border-radius: var(--radius-sm);
-  background: rgba(139, 92, 246, 0.16);
-  color: #ffffff;
+  gap: 5px;
+  background: rgba(139, 92, 246, 0.18);
   border: 1px solid rgba(139, 92, 246, 0.35);
-  font-size: 0.775rem;
+  color: #c084fc;
+  font-size: 0.75rem;
   font-weight: 700;
+  padding: 5px 11px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .earnBtn:hover {
-  background: rgba(139, 92, 246, 0.3);
-  border-color: rgba(139, 92, 246, 0.6);
-  box-shadow: 0 0 14px rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.35);
+  color: #ffffff;
+}
+
+.subtextPill {
+  font-size: 0.675rem;
+  color: var(--text-dim);
+}
+
+.subtextPillGold {
+  font-size: 0.675rem;
+  color: #fde68a;
+}
+
+.subtextPillCyan {
+  font-size: 0.675rem;
+  color: #bae6fd;
 }
 
 .redemptionReadyTag {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.775rem;
+  gap: 5px;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: #cbd5e1;
+  color: #fbbf24;
 }
 
-/* Center Conduit Bridge */
-.conduitBridge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.conduitCore {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: linear-gradient(135deg, rgba(22, 26, 46, 0.85) 0%, rgba(15, 17, 30, 0.92) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-xl);
-  padding: 1.5rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-}
-
-.conduitPulseRing {
-  position: absolute;
-  inset: -1px;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(139, 92, 246, 0.35);
-  pointer-events: none;
-  animation: pulseBorder 3s infinite ease-in-out;
-}
-
-@keyframes pulseBorder {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-.conduitIcon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(139, 92, 246, 0.18);
-  color: #c084fc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.65rem;
-  border: 1px solid rgba(139, 92, 246, 0.3);
-}
-
-.conduitInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.conduitRateLabel {
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  color: var(--text-muted);
-}
-
-.conduitRateVal {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-}
-
-.conduitStatus {
+.stakingYieldTag {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 0.685rem;
-  font-weight: 600;
-  color: #34d399;
-  margin-top: 4px;
-}
-
-.liveGreenDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 6px #10b981;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #38bdf8;
 }
 
 /* Tooltip Card */
 .tooltipCard {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  z-index: 10;
-  background: rgba(18, 20, 36, 0.96);
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  top: 45px;
+  left: 15px;
+  right: 15px;
+  background: rgba(15, 18, 35, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-md);
   padding: 1rem;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+  z-index: 20;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
 }
 
 .tooltipHeader {
@@ -380,8 +484,11 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.4rem;
+}
+
+.tooltipHeader span {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #ffffff;
 }
 
@@ -390,12 +497,16 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 0;
+  padding: 2px;
+}
+
+.tooltipHeader button:hover {
+  color: #ffffff;
 }
 
 .tooltipCard p {
   font-size: 0.75rem;
-  line-height: 1.45;
   color: var(--text-secondary);
+  line-height: 1.45;
   margin: 0;
 }

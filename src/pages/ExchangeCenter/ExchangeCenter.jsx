@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/layout/Navbar';
+import Sidebar from '../../components/layout/Sidebar';
+import RightSidebar from '../../components/layout/RightSidebar';
 import ExchangeHero from '../../components/exchange/ExchangeHero';
 import BalanceOverview from '../../components/exchange/BalanceOverview';
 import ExchangeCard from '../../components/exchange/ExchangeCard';
+import ExchangeForm from '../../components/exchange/ExchangeForm';
 import MidRewardBanner from '../../components/exchange/MidRewardBanner';
 import HowExchangeWorks from '../../components/exchange/HowExchangeWorks';
 import ExchangeRules from '../../components/exchange/ExchangeRules';
@@ -24,20 +27,35 @@ import {
 } from '../../data/exchangeData';
 
 import styles from './ExchangeCenter.module.css';
-import { Info, Settings, Sparkles, ShieldCheck, HelpCircle } from 'lucide-react';
+import {
+  Info,
+  Sparkles,
+  Zap,
+  Calculator,
+  LayoutGrid,
+  Columns,
+  Maximize2,
+  ShieldCheck,
+  HelpCircle,
+} from 'lucide-react';
 
 const ExchangeCenter = () => {
   // User Profile and Balances
   const [userData, setUserData] = useState(initialUserData);
   const [availableGems, setAvailableGems] = useState(initialUserData.availableGems);
   const [availableVEs, setAvailableVEs] = useState(initialUserData.availableVEs);
+  const [availableSVEs, setAvailableSVEs] = useState(initialUserData.availableSVEs || 1250);
 
   // Conversion options (4 cards + grand vault)
   const [options, setOptions] = useState(standardExchangeOptions);
   const [history, setHistory] = useState(initialRecentConversions);
 
-  // Modals & Navigation
+  // Modes & Views
   const [activeTab, setActiveTab] = useState('exchange');
+  const [conversionTab, setConversionTab] = useState('all'); // 'all' | 'packages' | 'custom'
+  const [layoutMode, setLayoutMode] = useState('expanded'); // 'expanded' | 'reference3Col'
+
+  // Modals & Navigation
   const [selectedOption, setSelectedOption] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [completedConversion, setCompletedConversion] = useState(null);
@@ -67,7 +85,14 @@ const ExchangeCenter = () => {
 
       const newHistoryItem = {
         id: 'conv-' + Date.now(),
-        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' • ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+        date:
+          new Date().toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          }) +
+          ' • ' +
+          new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
         dateRelative: 'Just now',
         requiredGems: option.requiredGems,
         receiveVEs: option.receiveVEs,
@@ -101,6 +126,15 @@ const ExchangeCenter = () => {
     }
   };
 
+  const handleScrollToRules = () => {
+    const el = document.getElementById('exchange-rules-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setIsGlossaryOpen(true);
+    }
+  };
+
   return (
     <div className={styles.appWrapper}>
       {/* 1. Global Sticky Navbar */}
@@ -113,103 +147,236 @@ const ExchangeCenter = () => {
         onOpenNotifications={() => setIsGlossaryOpen(true)}
       />
 
-      {/* 2. Main Page Container */}
-      <main className={styles.mainContainer}>
-        {/* Top Hero Section */}
-        <ExchangeHero onOpenHowItWorks={handleScrollToHowItWorks} />
-
-        {/* Balance Overview Cards */}
-        <BalanceOverview
-          gems={availableGems}
-          ves={availableVEs}
-          userData={userData}
-          onEarnMoreGems={() => setIsEarnGemsOpen(true)}
-        />
-
-        {/* Available Conversions Section */}
-        <section className={styles.conversionsSection} aria-label="Available Conversions">
-          <div className={styles.conversionsHeaderRow}>
-            <div>
-              <div className={styles.sectionBadge}>
-                <Sparkles size={12} />
-                <span>REWARD TIERS</span>
-              </div>
-              <h2 className={styles.conversionsTitle}>Available Conversions</h2>
-              <p className={styles.conversionsSub}>
-                Select a multiplier tier to convert your Gems into instant spendable VEs.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              className={styles.infoBadgeBtn}
-              onClick={() => setIsGlossaryOpen(true)}
-            >
-              <Info size={14} />
-              <span>Conversion Rules</span>
-            </button>
+      {/* Quick Viewport / Layout Mode Bar for evaluators & users */}
+      <div className={styles.topControlBanner}>
+        <div className={styles.topControlContainer}>
+          <div className={styles.controlLeft}>
+            <span className={styles.statusLivePill}>
+              <span className={styles.statusDot} />
+              <span>VELOOP REWARDS PROTOCOL V2.6</span>
+            </span>
+            <span className={styles.controlDesc}>
+              100% Guaranteed Reward Ratios &bull; Zero Fees
+            </span>
           </div>
 
-          {/* View States */}
-          {viewState === 'loading' && (
-            <ExchangeLoader
-              title="Preparing your reward conversions..."
-              subtitle="Fetching verified conversion ratios and real-time wallet allocations."
-            />
-          )}
+          <div className={styles.controlRight}>
+            <div className={styles.layoutToggleGroup}>
+              <button
+                type="button"
+                className={`${styles.layoutToggleBtn} ${layoutMode === 'expanded' ? styles.layoutToggleBtnActive : ''}`}
+                onClick={() => setLayoutMode('expanded')}
+                title="Spacious responsive full-width view"
+              >
+                <Maximize2 size={13} />
+                <span>Expanded View</span>
+              </button>
 
-          {viewState === 'error' && (
-            <ExchangeErrorState
-              title="Unable to load exchange options."
-              description="Could not synchronize with the reward ledger. Please try again."
-              onRetry={() => setViewState('normal')}
-            />
-          )}
-
-          {viewState === 'empty' && (
-            <ExchangeEmptyState onRefresh={() => setViewState('normal')} />
-          )}
-
-          {viewState === 'normal' && (
-            <div className={styles.cardsGrid}>
-              {options.map((opt) => (
-                <ExchangeCard
-                  key={opt.id}
-                  option={opt}
-                  availableGems={availableGems}
-                  onSelectExchange={handleSelectExchange}
-                  onEarnMoreGems={() => setIsEarnGemsOpen(true)}
-                />
-              ))}
+              <button
+                type="button"
+                className={`${styles.layoutToggleBtn} ${layoutMode === 'reference3Col' ? styles.layoutToggleBtnActive : ''}`}
+                onClick={() => setLayoutMode('reference3Col')}
+                title="Authentic 3-column layout matching task design"
+              >
+                <Columns size={13} />
+                <span>Task 3-Col View</span>
+              </button>
             </div>
-          )}
-        </section>
-
-        {/* Mid Reward Incentive Banner (VIP Milestone) */}
-        <MidRewardBanner
-          onSelectExchange={handleSelectExchange}
-          availableGems={availableGems}
-          onEarnMoreGems={() => setIsEarnGemsOpen(true)}
-        />
-
-        {/* 5-Step Process Flow */}
-        <div id="how-it-works-section">
-          <HowExchangeWorks />
+          </div>
         </div>
+      </div>
 
-        {/* Rules & Trust Guardrails */}
-        <ExchangeRules onOpenGlossary={() => setIsGlossaryOpen(true)} />
+      {/* Main Container: Supports both 3-column task layout and spacious responsive layout */}
+      <div className={layoutMode === 'reference3Col' ? styles.threeColWrapper : styles.singleColWrapper}>
+        {/* Left Sidebar (rendered in 3-column mode) */}
+        {layoutMode === 'reference3Col' && (
+          <div className={styles.leftSidebarPane}>
+            <Sidebar
+              userData={userData}
+              activeTab={activeTab}
+              onSelectTab={setActiveTab}
+              onExploreGems={() => setIsEarnGemsOpen(true)}
+            />
+          </div>
+        )}
 
-        {/* Recent Conversions Transaction Ledger */}
-        <ExchangeHistory history={history} />
-      </main>
+        {/* Center Main Content Area */}
+        <main className={styles.centerMain}>
+          {/* Top Hero Section */}
+          <ExchangeHero onOpenHowItWorks={handleScrollToHowItWorks} />
+
+          {/* Balance Overview Cards (Gems, VEs, and SVEs) */}
+          <BalanceOverview
+            gems={availableGems}
+            ves={availableVEs}
+            sves={availableSVEs}
+            userData={userData}
+            onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+          />
+
+          {/* Available Conversions Section with Tab Switcher */}
+          <section className={styles.conversionsSection} aria-label="Available Conversions">
+            <div className={styles.conversionsHeaderRow}>
+              <div>
+                <div className={styles.sectionBadge}>
+                  <Sparkles size={12} />
+                  <span>CONVERSION TIERS & CALCULATOR</span>
+                </div>
+                <h2 className={styles.conversionsTitle}>Available Conversions</h2>
+                <p className={styles.conversionsSub}>
+                  Select a fixed multiplier tier or use the custom converter to exchange your Gems.
+                </p>
+              </div>
+
+              {/* Conversion View Tabs */}
+              <div className={styles.tabsRow}>
+                <div className={styles.conversionModeTabs}>
+                  <button
+                    type="button"
+                    className={`${styles.modeTab} ${conversionTab === 'all' ? styles.modeTabActive : ''}`}
+                    onClick={() => setConversionTab('all')}
+                  >
+                    <LayoutGrid size={13} />
+                    <span>All Options</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`${styles.modeTab} ${conversionTab === 'packages' ? styles.modeTabActive : ''}`}
+                    onClick={() => setConversionTab('packages')}
+                  >
+                    <Zap size={13} />
+                    <span>Tier Packages (4)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`${styles.modeTab} ${conversionTab === 'custom' ? styles.modeTabActive : ''}`}
+                    onClick={() => setConversionTab('custom')}
+                  >
+                    <Calculator size={13} />
+                    <span>Custom Converter</span>
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  className={styles.infoBadgeBtn}
+                  onClick={() => setIsGlossaryOpen(true)}
+                >
+                  <Info size={14} />
+                  <span>Rules &amp; Glossary</span>
+                </button>
+              </div>
+            </div>
+
+            {/* View States */}
+            {viewState === 'loading' && (
+              <ExchangeLoader
+                title="Preparing your reward conversions..."
+                subtitle="Fetching verified conversion ratios and real-time wallet allocations."
+              />
+            )}
+
+            {viewState === 'error' && (
+              <ExchangeErrorState
+                title="Unable to load exchange options."
+                description="Could not synchronize with the reward ledger. Please try again."
+                onRetry={() => setViewState('normal')}
+              />
+            )}
+
+            {viewState === 'empty' && (
+              <ExchangeEmptyState onRefresh={() => setViewState('normal')} />
+            )}
+
+            {viewState === 'normal' && (
+              <>
+                {/* 4 Cards Grid (Shown in 'all' or 'packages' tab) */}
+                {(conversionTab === 'all' || conversionTab === 'packages') && (
+                  <div className={styles.cardsGridWrap}>
+                    <div className={styles.cardsGridHeader}>
+                      <span className={styles.gridSectionLabel}>
+                        ⚡ Fixed Instant Multiplier Packages
+                      </span>
+                      <span className={styles.gridSectionDesc}>
+                        Fixed reward packages with verified rate bonuses
+                      </span>
+                    </div>
+                    <div className={styles.cardsGrid}>
+                      {options.map((opt) => (
+                        <ExchangeCard
+                          key={opt.id}
+                          option={opt}
+                          availableGems={availableGems}
+                          onSelectExchange={handleSelectExchange}
+                          onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Custom Exchange Calculator Form (Shown in 'all' or 'custom' tab) */}
+                {(conversionTab === 'all' || conversionTab === 'custom') && (
+                  <div className={styles.customFormWrap}>
+                    <ExchangeForm
+                      availableGems={availableGems}
+                      availableVEs={availableVEs}
+                      onConfirmConversion={handleSelectExchange}
+                      onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          </section>
+
+          {/* Mid Reward Incentive Banner (VIP Milestone) */}
+          <MidRewardBanner
+            onSelectExchange={handleSelectExchange}
+            availableGems={availableGems}
+            onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+          />
+
+          {/* 5-Step Process Flow: How Exchange Works */}
+          <div id="how-it-works-section">
+            <HowExchangeWorks onOpenInfo={() => setIsGlossaryOpen(true)} />
+          </div>
+
+          {/* Rules & Trust Guardrails (rendered in center for expanded mode) */}
+          <div id="exchange-rules-section">
+            <ExchangeRules onOpenGlossary={() => setIsGlossaryOpen(true)} />
+          </div>
+
+          {/* Recent Conversions Transaction Ledger */}
+          <ExchangeHistory history={history} />
+        </main>
+
+        {/* Right Sidebar (rendered in 3-column mode) */}
+        {layoutMode === 'reference3Col' && (
+          <div className={styles.rightSidebarPane}>
+            <RightSidebar
+              gems={availableGems}
+              ves={availableVEs}
+              history={history}
+              onOpenGlossary={() => setIsGlossaryOpen(true)}
+              onOpenRules={handleScrollToRules}
+            />
+          </div>
+        )}
+      </div>
 
       {/* 3. Global Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerContainer}>
           <div className={styles.footerLeft}>
             <div className={styles.footerLogo}>
-              <img src="/assets/veloop_logo.png" alt="VEELOOP REWARDS" className={styles.footerLogoImg} />
+              <img
+                src="/assets/veloop_logo.png"
+                alt="VEELOOP REWARDS"
+                className={styles.footerLogoImg}
+              />
             </div>
             <p className={styles.footerDesc}>
               The premium reward conversion platform. Convert activity credits into real-value VEs with guaranteed instant settlement.
@@ -235,15 +402,27 @@ const ExchangeCenter = () => {
         </div>
 
         <div className={styles.footerBottomBar}>
-          <span>© 2026 VELOOP Rewards. All rights reserved. Virtual Reward Currency System.</span>
+          <span>&copy; 2026 VELOOP Rewards. All rights reserved. Virtual Reward Currency System.</span>
           <div className={styles.footerLinks}>
-            <button type="button" onClick={() => setIsGlossaryOpen(true)} className={styles.footerLink}>
+            <button
+              type="button"
+              onClick={() => setIsGlossaryOpen(true)}
+              className={styles.footerLink}
+            >
               Terms of Service
             </button>
-            <button type="button" onClick={() => setIsGlossaryOpen(true)} className={styles.footerLink}>
+            <button
+              type="button"
+              onClick={() => setIsGlossaryOpen(true)}
+              className={styles.footerLink}
+            >
               Platform Rules
             </button>
-            <button type="button" onClick={() => setIsGlossaryOpen(true)} className={styles.footerLink}>
+            <button
+              type="button"
+              onClick={() => setIsGlossaryOpen(true)}
+              className={styles.footerLink}
+            >
               Glossary
             </button>
           </div>
@@ -291,6 +470,8 @@ const ExchangeCenter = () => {
         setAvailableGems={setAvailableGems}
         availableVEs={availableVEs}
         setAvailableVEs={setAvailableVEs}
+        availableSVEs={availableSVEs}
+        setAvailableSVEs={setAvailableSVEs}
         onTriggerConfirmModal={() => {
           setSelectedOption(options[0]);
           setIsDevMenuOpen(false);

@@ -1,142 +1,212 @@
 .container {
-  margin: 2.75rem 0;
+  margin: 2rem 0;
   position: relative;
 }
 
 .headerRow {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.675rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  background: rgba(139, 92, 246, 0.15);
-  color: var(--brand-purple-light);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  margin-bottom: 0.4rem;
-}
-
-.title {
-  font-size: 1.65rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  margin: 0 0 0.35rem 0;
-}
-
-.sub {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.pipelineTrack {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  background: linear-gradient(135deg, rgba(22, 26, 46, 0.7) 0%, rgba(15, 17, 30, 0.85) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-xl);
-  padding: 1.75rem 1.5rem;
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(16px);
-  overflow-x: auto;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.phaseNode {
+.titleWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.infoBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.infoBtn:hover {
+  color: #ffffff;
+}
+
+.headerSub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Steps Rail */
+.stepsRail {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(22, 26, 46, 0.75) 0%, rgba(16, 18, 34, 0.88) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+}
+
+/* Step Card */
+.stepCard {
+  position: relative;
   flex: 1;
-  min-width: 140px;
+  min-width: 150px;
+  background: rgba(14, 16, 28, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 0.75rem 0.5rem;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  transition: all 0.2s ease;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.phaseNode:hover {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.35);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+.stepCard:hover {
+  background: rgba(26, 31, 56, 0.85);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.5);
 }
 
-.nodeIconChamber {
-  width: 58px;
-  height: 58px;
+.cardGlow {
+  position: absolute;
+  top: -30px;
+  left: 20%;
+  right: 20%;
+  height: 60px;
+  filter: blur(25px);
+  pointer-events: none;
+  opacity: 0.4;
+  transition: opacity 0.25s ease;
+}
+
+.stepCard:hover .cardGlow {
+  opacity: 0.9;
+}
+
+/* Numbered Badge */
+.numberBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  margin-bottom: 0.85rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* 3D Icon Chamber */
+.iconChamber {
+  width: 62px;
+  height: 62px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
+  position: relative;
+  z-index: 2;
   transition: transform 0.25s ease;
 }
 
-.phaseNode:hover .nodeIconChamber {
-  transform: scale(1.12);
+.stepCard:hover .iconChamber {
+  transform: scale(1.1);
 }
 
-.nodeImg {
+.stepIconImg {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.4));
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
 }
 
-.phaseNumber {
-  font-size: 0.625rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  color: var(--brand-purple-light);
-  margin-bottom: 3px;
-}
-
-.phaseTitle {
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: #ffffff;
-  margin: 0 0 3px 0;
-}
-
-.phaseDetail {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  line-height: 1.3;
-}
-
-.connectorArrow {
+/* Step Body */
+.stepBody {
+  position: relative;
+  z-index: 2;
   display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stepTitle {
+  font-size: 0.925rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.stepDesc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Connector Line with Chevron */
+.connector {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: rgba(139, 92, 246, 0.4);
+  padding: 0 4px;
+  color: rgba(255, 255, 255, 0.2);
   flex-shrink: 0;
 }
 
-@media (max-width: 900px) {
-  .pipelineTrack {
+.dashedLine {
+  width: 18px;
+  height: 1px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.25);
+  margin-bottom: 3px;
+}
+
+.chevronBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+}
+
+@media (max-width: 1024px) {
+  .stepsRail {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
   }
-  .connectorArrow {
+  .connector {
     display: none;
   }
 }
 
-@media (max-width: 500px) {
-  .pipelineTrack {
+@media (max-width: 640px) {
+  .stepsRail {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
   }
 }
