@@ -6,43 +6,39 @@ import styles from './HowExchangeWorks.module.css';
 const stepsData = [
   {
     stepNum: '01',
-    title: 'Earn Gems',
-    desc: 'Complete eligible activities and earn Gems.',
-    icon: '/assets/step1_earn.png',
+    title: 'Choose',
+    subtitle: 'Select Tier',
+    desc: 'Select a conversion package or enter custom Gems.',
+    icon: '/assets/step2_choose.png',
     accentColor: '#c084fc',
-    glowColor: 'rgba(192, 132, 252, 0.25)',
+    glowColor: 'rgba(192, 132, 252, 0.2)',
   },
   {
     stepNum: '02',
-    title: 'Choose Conversion',
-    desc: 'Select a conversion that suits your Gems balance.',
-    icon: '/assets/step2_choose.png',
-    accentColor: '#60a5fa',
-    glowColor: 'rgba(96, 165, 250, 0.25)',
+    title: 'Review',
+    subtitle: 'Check Ratio',
+    desc: 'Review required Gems, incoming VEs, and rate preview.',
+    icon: '/assets/step3_review.png',
+    accentColor: '#38bdf8',
+    glowColor: 'rgba(56, 189, 248, 0.2)',
   },
   {
     stepNum: '03',
-    title: 'Review Exchange',
-    desc: 'Review the details before confirming the conversion.',
-    icon: '/assets/step3_review.png',
-    accentColor: '#2dd4bf',
-    glowColor: 'rgba(45, 212, 191, 0.25)',
+    title: 'Confirm',
+    subtitle: 'Authorize',
+    desc: 'Confirm the exchange with instant zero-fee settlement.',
+    icon: '/assets/step4_confirm.png',
+    accentColor: '#fbbf24',
+    glowColor: 'rgba(251, 191, 36, 0.2)',
   },
   {
     stepNum: '04',
-    title: 'Confirm',
-    desc: 'Confirm the exchange to convert your Gems.',
-    icon: '/assets/step4_confirm.png',
-    accentColor: '#fbbf24',
-    glowColor: 'rgba(251, 191, 36, 0.25)',
-  },
-  {
-    stepNum: '05',
-    title: 'Receive VEs',
-    desc: 'VEs are added to your balance instantly.',
+    title: 'Receive',
+    subtitle: 'Instant Credit',
+    desc: 'VEs land in your spendable treasury instantly.',
     icon: '/assets/step5_receive.png',
     accentColor: '#34d399',
-    glowColor: 'rgba(52, 211, 153, 0.25)',
+    glowColor: 'rgba(52, 211, 153, 0.2)',
   },
 ];
 
@@ -59,11 +55,11 @@ const HowExchangeWorks = ({ onOpenInfo }) => {
             aria-label="How exchange works info"
             title="Learn about the conversion process"
           >
-            <Info size={14} />
+            <Info size={13} />
           </button>
         </div>
         <span className={styles.headerSub}>
-          Simple 5-step conversion pipeline from activity to spendable balance
+          4-step conversion flow &bull; Instant atomic settlement
         </span>
       </div>
 
@@ -72,29 +68,28 @@ const HowExchangeWorks = ({ onOpenInfo }) => {
           <React.Fragment key={step.stepNum}>
             <motion.div
               className={styles.stepCard}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: idx * 0.08 }}
-              whileHover={{ y: -4 }}
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
             >
               <div
                 className={styles.cardGlow}
                 style={{ background: step.glowColor }}
               />
 
-              {/* Numbered Indicator */}
-              <div
-                className={styles.numberBadge}
-                style={{
-                  color: step.accentColor,
-                  borderColor: step.accentColor,
-                  background: `${step.glowColor}`,
-                }}
-              >
-                {step.stepNum}
+              <div className={styles.topBadgeRow}>
+                <span
+                  className={styles.numberBadge}
+                  style={{
+                    color: step.accentColor,
+                    borderColor: step.accentColor,
+                    background: step.glowColor,
+                  }}
+                >
+                  {step.stepNum}
+                </span>
+                <span className={styles.stepSubtitle}>{step.subtitle}</span>
               </div>
 
-              {/* 3D Glowing Circle Icon */}
               <div className={styles.iconChamber}>
                 <img
                   src={step.icon}
@@ -103,19 +98,17 @@ const HowExchangeWorks = ({ onOpenInfo }) => {
                 />
               </div>
 
-              {/* Step Title & Description */}
               <div className={styles.stepBody}>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
                 <p className={styles.stepDesc}>{step.desc}</p>
               </div>
             </motion.div>
 
-            {/* Dotted Flow Rail Connector with Chevron */}
             {idx < stepsData.length - 1 && (
               <div className={styles.connector} aria-hidden="true">
                 <div className={styles.dashedLine} />
                 <div className={styles.chevronBox}>
-                  <ChevronRight size={13} />
+                  <ChevronRight size={12} />
                 </div>
               </div>
             )}

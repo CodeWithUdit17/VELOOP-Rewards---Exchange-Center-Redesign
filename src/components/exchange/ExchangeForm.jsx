@@ -8,18 +8,17 @@ import {
   AlertTriangle,
   CheckCircle2,
   Plus,
-  RefreshCw,
   Calculator,
   ShieldCheck,
+  Eye,
 } from 'lucide-react';
 import styles from './ExchangeForm.module.css';
 
 const presetAmounts = [
-  { label: '28 (Daily)', value: 28 },
-  { label: '39 (Explorer)', value: 39 },
-  { label: '57 (Value)', value: 57 },
-  { label: '100 (VIP)', value: 100 },
-  { label: '250 (Whale)', value: 250 },
+  { label: '28', value: 28 },
+  { label: '39', value: 39 },
+  { label: '57', value: 57 },
+  { label: '100', value: 100 },
 ];
 
 const ExchangeForm = ({
@@ -28,8 +27,8 @@ const ExchangeForm = ({
   onConfirmConversion,
   onEarnMoreGems,
 }) => {
-  const [gemInput, setGemInput] = useState('57');
-  const [isHovered, setIsHovered] = useState(false);
+  const [gemInput, setGemInput] = useState('28');
+  const [isPreviewMode, setIsPreviewMode] = useState(true);
   const sliderId = useId();
 
   // Parsing & validation
@@ -39,17 +38,17 @@ const ExchangeForm = ({
   const isEmptyOrZero = numGems <= 0;
   const missingGems = Math.max(0, numGems - availableGems);
 
-  // Conversion rate logic: Base rate 5.39, bonus tier for larger batches
+  // Conversion rate logic (Base 5.39x)
   const baseRate = 5.39;
   let bonusMultiplier = 1.0;
-  let bonusLabel = 'Standard Multiplier';
+  let tierLabel = 'Standard Multiplier';
 
   if (numGems >= 100) {
-    bonusMultiplier = 1.05; // +5% bonus
-    bonusLabel = 'VIP Whale +5% Bonus';
+    bonusMultiplier = 1.05;
+    tierLabel = 'VIP Whale (+5% Bonus)';
   } else if (numGems >= 57) {
-    bonusMultiplier = 1.02; // +2% bonus
-    bonusLabel = 'Value Explorer +2% Bonus';
+    bonusMultiplier = 1.02;
+    tierLabel = 'Value (+2% Bonus)';
   }
 
   const effectiveRate = Number((baseRate * bonusMultiplier).toFixed(2));
@@ -76,11 +75,11 @@ const ExchangeForm = ({
 
     const customOption = {
       id: 'custom-' + Date.now(),
-      tierName: numGems >= 100 ? 'VIP Custom Conversion' : 'Custom Gem Conversion',
+      tierName: numGems >= 100 ? 'VIP Custom Conversion' : 'Calculator Conversion',
       requiredGems: numGems,
       receiveVEs: calculatedVEs,
       multiplier: `${effectiveRate}x`,
-      badge: numGems >= 100 ? 'VIP CONVERT' : 'CUSTOM',
+      badge: numGems >= 100 ? 'VIP CONVERT' : 'CALCULATOR',
       tagline: `Calculated at ${effectiveRate}x guaranteed rate`,
     };
 
@@ -88,263 +87,171 @@ const ExchangeForm = ({
   };
 
   return (
-    <section className={styles.formContainer} aria-label="Interactive Exchange Form">
-      <div className={styles.formCard}>
-        {/* Glow ambient background */}
-        <div className={styles.ambientGlow} />
+    <div className={styles.calculatorCard} aria-label="Gems to VEs Calculator">
+      <div className={styles.calcHeader}>
+        <div className={styles.calcTitleRow}>
+          <div className={styles.iconBadge}>
+            <Calculator size={14} />
+          </div>
+          <div>
+            <h3 className={styles.calcTitle}>Gems-to-VEs Calculator</h3>
+            <span className={styles.calcSub}>
+              Enter custom Gems with MAX option &amp; live conversion calculations
+            </span>
+          </div>
+        </div>
 
-        {/* Header */}
-        <div className={styles.formHeader}>
-          <div className={styles.headerLeft}>
-            <div className={styles.badgeRow}>
-              <span className={styles.tagBadge}>
-                <Calculator size={12} />
-                <span>CUSTOM REWARD CONVERTER</span>
-              </span>
-              <span className={styles.ratePill}>
-                <TrendingUp size={11} />
-                <span>1 Gem = {effectiveRate} VEs</span>
-              </span>
-            </div>
-            <h3 className={styles.formTitle}>Flexible Exchange Calculator</h3>
-            <p className={styles.formSubtitle}>
-              Enter any Gem amount or pick a preset to preview conversion with instant rate lock.
-            </p>
+        <div className={styles.ratePill}>
+          <TrendingUp size={12} />
+          <span>1 Gem = {effectiveRate} VEs</span>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className={styles.calcBody}>
+        {/* Input & Presets Row */}
+        <div className={styles.inputSection}>
+          <div className={styles.inputTopRow}>
+            <label htmlFor="gem-calc-input" className={styles.inputLabel}>
+              Gems to Convert
+            </label>
+            <span className={styles.balanceInfo}>
+              Available: <strong>{Number(availableGems).toLocaleString()} Gems</strong>
+            </span>
           </div>
 
-          <div className={styles.headerRight}>
-            <div className={styles.guaranteePill}>
-              <ShieldCheck size={14} className={styles.shieldIcon} />
-              <span>Zero Fees &bull; Instant Settlement</span>
+          <div className={`${styles.inputBox} ${isOverBalance ? styles.inputBoxError : ''}`}>
+            <img src="/assets/gem_purple.png" alt="Gem" className={styles.gemPrefix} />
+            <input
+              id="gem-calc-input"
+              type="text"
+              inputMode="numeric"
+              value={gemInput}
+              onChange={handleInputChange}
+              placeholder="0"
+              className={styles.numInput}
+              maxLength={6}
+            />
+            <button
+              type="button"
+              className={styles.maxBtn}
+              onClick={handleMaxClick}
+              title="Convert maximum available Gems"
+            >
+              MAX
+            </button>
+          </div>
+
+          {/* Quick Presets */}
+          <div className={styles.presetsRow}>
+            <span className={styles.presetLabel}>Presets:</span>
+            <div className={styles.presetGroup}>
+              {presetAmounts.map((p) => (
+                <button
+                  key={p.value}
+                  type="button"
+                  className={`${styles.presetPill} ${numGems === p.value ? styles.presetPillActive : ''}`}
+                  onClick={() => handlePresetClick(p.value)}
+                >
+                  {p.label} Gems
+                </button>
+              ))}
+              <button
+                type="button"
+                className={`${styles.presetPill} ${styles.presetMax} ${numGems === availableGems ? styles.presetPillActive : ''}`}
+                onClick={handleMaxClick}
+              >
+                Max ({availableGems})
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Main interactive form */}
-        <form onSubmit={handleSubmit} className={styles.calculatorGrid}>
-          {/* Left Column: Input and Presets */}
-          <div className={styles.inputColumn}>
-            <div className={styles.inputGroupWrap}>
-              <div className={styles.inputLabelRow}>
-                <label htmlFor="gems-input-field" className={styles.fieldLabel}>
-                  Amount of Gems to Convert
-                </label>
-                <span className={styles.availableBadge}>
-                  Balance: <strong>{Number(availableGems).toLocaleString()} Gems</strong>
-                </span>
-              </div>
-
-              {/* Input Box with Gem Icon and MAX button */}
-              <div className={`${styles.inputBox} ${isOverBalance ? styles.inputBoxError : ''}`}>
-                <div className={styles.inputPrefix}>
-                  <img
-                    src="/assets/gem_purple.png"
-                    alt="Gems"
-                    className={styles.gemPrefixImg}
-                  />
-                  <span className={styles.currencyPrefixText}>GEMS</span>
-                </div>
-
-                <input
-                  id="gems-input-field"
-                  type="text"
-                  inputMode="numeric"
-                  value={gemInput}
-                  onChange={handleInputChange}
-                  placeholder="0"
-                  className={styles.numericInput}
-                  maxLength={6}
-                />
-
-                <button
-                  type="button"
-                  className={styles.maxBtn}
-                  onClick={handleMaxClick}
-                  title="Convert maximum available Gems"
-                >
-                  MAX
-                </button>
-              </div>
-
-              {/* Slider for intuitive control */}
-              <div className={styles.sliderWrap}>
-                <input
-                  id={sliderId}
-                  aria-label="Gems to Convert Slider"
-                  type="range"
-                  min="0"
-                  max={Math.max(100, availableGems)}
-                  value={numGems}
-                  onChange={(e) => setGemInput(e.target.value)}
-                  className={styles.gemSlider}
-                  style={{
-                    background: `linear-gradient(to right, #8b5cf6 0%, #ec4899 ${(numGems / Math.max(100, availableGems)) * 100}%, rgba(255, 255, 255, 0.1) ${(numGems / Math.max(100, availableGems)) * 100}%, rgba(255, 255, 255, 0.1) 100%)`,
-                  }}
-                />
-                <div className={styles.sliderLabels}>
-                  <span>0</span>
-                  <span>50</span>
-                  <span>100</span>
-                  <span>{availableGems} (Max)</span>
-                </div>
-              </div>
-
-              {/* Quick Preset Buttons */}
-              <div className={styles.presetsRow}>
-                <span className={styles.presetHeading}>Quick Amounts:</span>
-                <div className={styles.presetButtons}>
-                  {presetAmounts.map((p) => {
-                    const isSelected = numGems === p.value;
-                    const canAffordPreset = availableGems >= p.value;
-                    return (
-                      <button
-                        key={p.value}
-                        type="button"
-                        className={`${styles.presetBtn} ${isSelected ? styles.presetBtnActive : ''} ${!canAffordPreset ? styles.presetBtnDisabled : ''}`}
-                        onClick={() => handlePresetClick(p.value)}
-                      >
-                        {p.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Validation / Warning Messages */}
-            <AnimatePresence>
-              {isOverBalance && (
-                <motion.div
-                  className={styles.errorBanner}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                >
-                  <AlertTriangle size={16} className={styles.errorIcon} />
-                  <div className={styles.errorText}>
-                    <strong>Insufficient Gems Balance!</strong>
-                    <span>
-                      You need <strong>{missingGems} more Gems</strong> to complete this conversion.
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.earnMoreLink}
-                    onClick={onEarnMoreGems}
-                  >
-                    <Plus size={12} />
-                    <span>Earn Gems</span>
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+        {/* Calculation Preview Matrix */}
+        <div className={styles.previewSection}>
+          <div className={styles.previewHeaderRow}>
+            <span className={styles.previewTag}>
+              <Eye size={12} />
+              <span>Preview Conversion</span>
+            </span>
+            <span className={styles.tierTag}>{tierLabel}</span>
           </div>
 
-          {/* Right Column: Live Conversion Preview Card */}
-          <div className={styles.previewColumn}>
-            <div className={styles.previewCard}>
-              <div className={styles.previewHeader}>
-                <span className={styles.previewBadge}>
-                  <Sparkles size={11} />
-                  <span>CONVERSION PREVIEW</span>
-                </span>
-                <span className={styles.tierRateText}>{bonusLabel}</span>
+          <div className={styles.calcMatrix}>
+            <div className={styles.calcCol}>
+              <span className={styles.colLabel}>GEMS DEDUCTED</span>
+              <div className={styles.colValueRow}>
+                <span className={styles.gemsValue}>-{isEmptyOrZero ? 0 : numGems}</span>
+                <span className={styles.valUnit}>Gems</span>
               </div>
+              <span className={styles.colSub}>
+                Remaining: {isEmptyOrZero ? availableGems : remainingGems} Gems
+              </span>
+            </div>
 
-              <div className={styles.conversionMetrics}>
-                {/* You Deduct */}
-                <div className={styles.metricBlock}>
-                  <span className={styles.metricLabel}>YOU CONVERT</span>
-                  <div className={styles.metricRow}>
-                    <img
-                      src="/assets/gem_purple.png"
-                      alt="Gems"
-                      className={styles.metricIcon}
-                    />
-                    <span className={styles.metricGemsValue}>
-                      {isEmptyOrZero ? '0' : Number(numGems).toLocaleString()}
-                    </span>
-                    <span className={styles.metricUnit}>Gems</span>
-                  </div>
-                  <span className={styles.metricSub}>
-                    Remaining: {isEmptyOrZero ? availableGems : Number(remainingGems).toLocaleString()} Gems
-                  </span>
-                </div>
-
-                {/* Conversion Divider with animated arrow */}
-                <div className={styles.nexusDivider}>
-                  <div className={styles.nexusLine} />
-                  <div className={styles.nexusPill}>
-                    <ArrowRight size={14} className={styles.nexusArrow} />
-                    <span>{effectiveRate}x</span>
-                  </div>
-                  <div className={styles.nexusLine} />
-                </div>
-
-                {/* You Receive */}
-                <div className={styles.metricBlock}>
-                  <span className={styles.metricLabel}>YOU RECEIVE</span>
-                  <div className={styles.metricRow}>
-                    <img
-                      src="/assets/coin_ve.png"
-                      alt="VEs"
-                      className={styles.metricIcon}
-                    />
-                    <span className={styles.metricVEsValue}>
-                      +{isEmptyOrZero ? '0' : Number(calculatedVEs).toLocaleString()}
-                    </span>
-                    <span className={styles.metricUnitGold}>VEs</span>
-                  </div>
-                  <span className={styles.metricSubGold}>
-                    Projected Treasury: {isEmptyOrZero ? availableVEs : Number(projectedVEs).toLocaleString()} VEs
-                  </span>
-                </div>
+            <div className={styles.arrowNexus}>
+              <div className={styles.nexusLine} />
+              <div className={styles.nexusCircle}>
+                <ArrowRight size={13} />
               </div>
+              <span className={styles.rateText}>{effectiveRate}x</span>
+              <div className={styles.nexusLine} />
+            </div>
 
-              {/* Conversion details summary pill */}
-              <div className={styles.summaryBar}>
-                <div className={styles.summaryItem}>
-                  <span>Fixed Multiplier</span>
-                  <strong>{effectiveRate}x</strong>
-                </div>
-                <div className={styles.summaryDivider} />
-                <div className={styles.summaryItem}>
-                  <span>Conversion Fee</span>
-                  <strong className={styles.zeroFee}>0 Gems (FREE)</strong>
-                </div>
-                <div className={styles.summaryDivider} />
-                <div className={styles.summaryItem}>
-                  <span>Settlement</span>
-                  <strong className={styles.instantTag}>Instant (0s)</strong>
-                </div>
+            <div className={styles.calcCol}>
+              <span className={styles.colLabel}>VEs RECEIVED</span>
+              <div className={styles.colValueRow}>
+                <span className={styles.vesValue}>+{isEmptyOrZero ? 0 : calculatedVEs}</span>
+                <span className={styles.valUnitGold}>VEs</span>
               </div>
+              <span className={styles.colSubGold}>
+                New Treasury: {Number(isEmptyOrZero ? availableVEs : projectedVEs).toLocaleString()} VEs
+              </span>
+            </div>
+          </div>
 
-              {/* Submit CTA Button */}
-              <button
-                type="submit"
-                disabled={!isAffordable}
-                className={`${styles.submitBtn} ${!isAffordable ? styles.submitBtnDisabled : ''}`}
+          {/* Validation Banner if Insufficient */}
+          <AnimatePresence>
+            {isOverBalance && (
+              <motion.div
+                className={styles.errorRow}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
               >
-                {isEmptyOrZero ? (
-                  <span>Enter Gems Amount to Convert</span>
-                ) : isOverBalance ? (
-                  <span>Insufficient Gems Balance ({missingGems} Needed)</span>
-                ) : (
-                  <>
-                    <Zap size={16} />
-                    <span>
-                      Review & Convert {Number(numGems).toLocaleString()} Gems &rarr; {Number(calculatedVEs).toLocaleString()} VEs
-                    </span>
-                  </>
-                )}
-              </button>
-            </div>
+                <AlertTriangle size={13} />
+                <span>
+                  Insufficient Gems: Need <strong>{missingGems} more Gems</strong>
+                </span>
+                <button type="button" onClick={onEarnMoreGems} className={styles.earnMoreLink}>
+                  + Earn Gems
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Action Button */}
+          <div className={styles.calcActionRow}>
+            <button
+              type="submit"
+              disabled={!isAffordable}
+              className={`${styles.convertNowBtn} ${!isAffordable ? styles.convertBtnDisabled : ''}`}
+            >
+              {isEmptyOrZero ? (
+                'Enter Gems Amount'
+              ) : isOverBalance ? (
+                `Need ${missingGems} More Gems`
+              ) : (
+                <>
+                  <Zap size={14} />
+                  <span>Convert {numGems} Gems ➔ {calculatedVEs} VEs</span>
+                </>
+              )}
+            </button>
           </div>
-        </form>
-      </div>
-    </section>
+        </div>
+      </form>
+    </div>
   );
 };
 
 export default ExchangeForm;
-

@@ -1,5 +1,5 @@
 .container {
-  margin: 2rem 0;
+  margin: 1.25rem 0;
   position: relative;
 }
 
@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.85rem;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
@@ -19,7 +19,7 @@
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   color: #ffffff;
@@ -43,7 +43,7 @@
 }
 
 .headerSub {
-  font-size: 0.8rem;
+  font-size: 0.775rem;
   color: var(--text-muted);
 }
 
@@ -53,78 +53,92 @@
   align-items: stretch;
   justify-content: space-between;
   gap: 0.5rem;
-  background: linear-gradient(135deg, rgba(22, 26, 46, 0.75) 0%, rgba(16, 18, 34, 0.88) 100%);
+  background: linear-gradient(135deg, rgba(20, 24, 42, 0.75) 0%, rgba(14, 16, 30, 0.9) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-xl);
-  padding: 1.5rem 1.25rem;
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: 1rem 0.85rem;
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
 }
 
 /* Step Card */
 .stepCard {
   position: relative;
   flex: 1;
-  min-width: 150px;
-  background: rgba(14, 16, 28, 0.65);
+  min-width: 130px;
+  background: rgba(12, 14, 26, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 1rem;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 0.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   overflow: hidden;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .stepCard:hover {
-  background: rgba(26, 31, 56, 0.85);
-  border-color: rgba(255, 255, 255, 0.18);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.5);
+  background: rgba(24, 28, 50, 0.85);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.5);
 }
 
 .cardGlow {
   position: absolute;
-  top: -30px;
+  top: -25px;
   left: 20%;
   right: 20%;
-  height: 60px;
-  filter: blur(25px);
+  height: 45px;
+  filter: blur(20px);
   pointer-events: none;
   opacity: 0.4;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
 }
 
 .stepCard:hover .cardGlow {
   opacity: 0.9;
 }
 
-/* Numbered Badge */
-.numberBadge {
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 2px 9px;
-  border-radius: var(--radius-full);
-  border: 1px solid;
-  margin-bottom: 0.85rem;
+.topBadgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.5rem;
   position: relative;
   z-index: 2;
 }
 
+.numberBadge {
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+}
+
+.stepSubtitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 /* 3D Icon Chamber */
 .iconChamber {
-  width: 62px;
-  height: 62px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.5rem;
   position: relative;
   z-index: 2;
-  transition: transform 0.25s ease;
+  transition: transform 0.2s ease;
 }
 
 .stepCard:hover .iconChamber {
@@ -135,7 +149,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
 }
 
 /* Step Body */
@@ -144,11 +158,11 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .stepTitle {
-  font-size: 0.925rem;
+  font-size: 0.85rem;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.01em;
@@ -156,9 +170,9 @@
 }
 
 .stepDesc {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
-  line-height: 1.45;
+  line-height: 1.35;
   margin: 0;
 }
 
@@ -168,45 +182,67 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 4px;
+  padding: 0 2px;
   color: rgba(255, 255, 255, 0.2);
   flex-shrink: 0;
 }
 
 .dashedLine {
-  width: 18px;
+  width: 12px;
   height: 1px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.25);
-  margin-bottom: 3px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.2);
+  margin-bottom: 2px;
 }
 
 .chevronBox {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-dim);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .stepsRail {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.85rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    padding: 0.85rem;
   }
   .connector {
     display: none;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 480px) {
   .stepsRail {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
-    padding: 1rem;
+    gap: 0.5rem;
+  }
+  .stepCard {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem;
+  }
+  .topBadgeRow {
+    width: auto;
+    flex-direction: column;
+    margin-bottom: 0;
+    gap: 2px;
+  }
+  .iconChamber {
+    margin-bottom: 0;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+  }
+  .stepBody {
+    flex: 1;
   }
 }

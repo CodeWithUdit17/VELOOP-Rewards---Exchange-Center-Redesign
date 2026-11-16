@@ -32,11 +32,10 @@ import {
   Sparkles,
   Zap,
   Calculator,
-  LayoutGrid,
-  Columns,
-  Maximize2,
   ShieldCheck,
   HelpCircle,
+  Menu,
+  X,
 } from 'lucide-react';
 
 const ExchangeCenter = () => {
@@ -50,12 +49,11 @@ const ExchangeCenter = () => {
   const [options, setOptions] = useState(standardExchangeOptions);
   const [history, setHistory] = useState(initialRecentConversions);
 
-  // Modes & Views
+  // Navigation & Drawer
   const [activeTab, setActiveTab] = useState('exchange');
-  const [conversionTab, setConversionTab] = useState('all'); // 'all' | 'packages' | 'custom'
-  const [layoutMode, setLayoutMode] = useState('expanded'); // 'expanded' | 'reference3Col'
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Modals & Navigation
+  // Modals & Flows
   const [selectedOption, setSelectedOption] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [completedConversion, setCompletedConversion] = useState(null);
@@ -66,7 +64,7 @@ const ExchangeCenter = () => {
   const [viewState, setViewState] = useState('normal');
   const [isDevMenuOpen, setIsDevMenuOpen] = useState(false);
 
-  // Handlers
+  // Conversion Handler
   const handleSelectExchange = (option) => {
     setSelectedOption(option);
   };
@@ -137,75 +135,70 @@ const ExchangeCenter = () => {
 
   return (
     <div className={styles.appWrapper}>
-      {/* 1. Global Sticky Navbar */}
-      <Navbar
-        userData={userData}
-        availableGems={availableGems}
-        availableVEs={availableVEs}
-        activeTab={activeTab}
-        onSelectTab={setActiveTab}
-        onOpenNotifications={() => setIsGlossaryOpen(true)}
-      />
+      {/* Mobile Top Navigation Header (visible on < 1150px) */}
+      <header className={styles.mobileHeader}>
+        <div className={styles.mobileHeaderLeft}>
+          <button
+            type="button"
+            className={styles.menuToggleBtn}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+          <img src="/assets/veloop_logo.png" alt="VELOOP REWARDS" className={styles.mobileLogoImg} />
+        </div>
 
-      {/* Quick Viewport / Layout Mode Bar for evaluators & users */}
-      <div className={styles.topControlBanner}>
-        <div className={styles.topControlContainer}>
-          <div className={styles.controlLeft}>
-            <span className={styles.statusLivePill}>
-              <span className={styles.statusDot} />
-              <span>VELOOP REWARDS PROTOCOL V2.6</span>
-            </span>
-            <span className={styles.controlDesc}>
-              100% Guaranteed Reward Ratios &bull; Zero Fees
-            </span>
+        <div className={styles.mobileHeaderRight}>
+          <div className={styles.headerBalPill}>
+            <img src="/assets/gem_purple.png" alt="Gems" className={styles.balIcon} />
+            <span>{Number(availableGems).toLocaleString()}</span>
           </div>
-
-          <div className={styles.controlRight}>
-            <div className={styles.layoutToggleGroup}>
-              <button
-                type="button"
-                className={`${styles.layoutToggleBtn} ${layoutMode === 'expanded' ? styles.layoutToggleBtnActive : ''}`}
-                onClick={() => setLayoutMode('expanded')}
-                title="Spacious responsive full-width view"
-              >
-                <Maximize2 size={13} />
-                <span>Expanded View</span>
-              </button>
-
-              <button
-                type="button"
-                className={`${styles.layoutToggleBtn} ${layoutMode === 'reference3Col' ? styles.layoutToggleBtnActive : ''}`}
-                onClick={() => setLayoutMode('reference3Col')}
-                title="Authentic 3-column layout matching task design"
-              >
-                <Columns size={13} />
-                <span>Task 3-Col View</span>
-              </button>
-            </div>
+          <div className={styles.headerBalPill}>
+            <img src="/assets/coin_ve.png" alt="VEs" className={styles.balIcon} />
+            <span>{Number(availableVEs).toLocaleString()}</span>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main Container: Supports both 3-column task layout and spacious responsive layout */}
-      <div className={layoutMode === 'reference3Col' ? styles.threeColWrapper : styles.singleColWrapper}>
-        {/* Left Sidebar (rendered in 3-column mode) */}
-        {layoutMode === 'reference3Col' && (
-          <div className={styles.leftSidebarPane}>
+      {/* Mobile Drawer Navigation */}
+      {isMobileMenuOpen && (
+        <div className={styles.mobileDrawerOverlay} onClick={() => setIsMobileMenuOpen(false)}>
+          <div className={styles.mobileDrawerContent} onClick={(e) => e.stopPropagation()}>
             <Sidebar
               userData={userData}
               activeTab={activeTab}
-              onSelectTab={setActiveTab}
-              onExploreGems={() => setIsEarnGemsOpen(true)}
+              onSelectTab={(tab) => {
+                setActiveTab(tab);
+                setIsMobileMenuOpen(false);
+              }}
+              onExploreGems={() => {
+                setIsEarnGemsOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
             />
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Center Main Content Area */}
-        <main className={styles.centerMain}>
+      {/* Main Dashboard Layout (Reference 3-Column Structure) */}
+      <div className={styles.dashboardContainer}>
+        {/* 1. LEFT SIDEBAR (Sticky on desktop, exactly matches reference) */}
+        <aside className={styles.leftSidebarWrapper}>
+          <Sidebar
+            userData={userData}
+            activeTab={activeTab}
+            onSelectTab={setActiveTab}
+            onExploreGems={() => setIsEarnGemsOpen(true)}
+          />
+        </aside>
+
+        {/* 2. CENTER MAIN COLUMN */}
+        <main className={styles.centerMainColumn}>
           {/* Top Hero Section */}
           <ExchangeHero onOpenHowItWorks={handleScrollToHowItWorks} />
 
-          {/* Balance Overview Cards (Gems, VEs, and SVEs) */}
+          {/* Wallet Balance Panel (Available Gems & Available VEs) */}
           <BalanceOverview
             gems={availableGems}
             ves={availableVEs}
@@ -214,60 +207,36 @@ const ExchangeCenter = () => {
             onEarnMoreGems={() => setIsEarnGemsOpen(true)}
           />
 
-          {/* Available Conversions Section with Tab Switcher */}
+          {/* Gems-to-VEs Exchange Calculator Engine (with MAX & Preview) */}
+          <ExchangeForm
+            availableGems={availableGems}
+            availableVEs={availableVEs}
+            onConfirmConversion={handleSelectExchange}
+            onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+          />
+
+          {/* Available Conversions: Compact 4 Tier Cards */}
           <section className={styles.conversionsSection} aria-label="Available Conversions">
             <div className={styles.conversionsHeaderRow}>
               <div>
                 <div className={styles.sectionBadge}>
-                  <Sparkles size={12} />
-                  <span>CONVERSION TIERS & CALCULATOR</span>
+                  <Sparkles size={11} />
+                  <span>PREDEFINED PACKAGES</span>
                 </div>
                 <h2 className={styles.conversionsTitle}>Available Conversions</h2>
                 <p className={styles.conversionsSub}>
-                  Select a fixed multiplier tier or use the custom converter to exchange your Gems.
+                  Select a multiplier package to convert your Gems into spendable VEs instantly.
                 </p>
               </div>
 
-              {/* Conversion View Tabs */}
-              <div className={styles.tabsRow}>
-                <div className={styles.conversionModeTabs}>
-                  <button
-                    type="button"
-                    className={`${styles.modeTab} ${conversionTab === 'all' ? styles.modeTabActive : ''}`}
-                    onClick={() => setConversionTab('all')}
-                  >
-                    <LayoutGrid size={13} />
-                    <span>All Options</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className={`${styles.modeTab} ${conversionTab === 'packages' ? styles.modeTabActive : ''}`}
-                    onClick={() => setConversionTab('packages')}
-                  >
-                    <Zap size={13} />
-                    <span>Tier Packages (4)</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className={`${styles.modeTab} ${conversionTab === 'custom' ? styles.modeTabActive : ''}`}
-                    onClick={() => setConversionTab('custom')}
-                  >
-                    <Calculator size={13} />
-                    <span>Custom Converter</span>
-                  </button>
-                </div>
-
-                <button
-                  type="button"
-                  className={styles.infoBadgeBtn}
-                  onClick={() => setIsGlossaryOpen(true)}
-                >
-                  <Info size={14} />
-                  <span>Rules &amp; Glossary</span>
-                </button>
-              </div>
+              <button
+                type="button"
+                className={styles.infoBadgeBtn}
+                onClick={() => setIsGlossaryOpen(true)}
+              >
+                <Info size={13} />
+                <span>Conversion Rules</span>
+              </button>
             </div>
 
             {/* View States */}
@@ -291,83 +260,54 @@ const ExchangeCenter = () => {
             )}
 
             {viewState === 'normal' && (
-              <>
-                {/* 4 Cards Grid (Shown in 'all' or 'packages' tab) */}
-                {(conversionTab === 'all' || conversionTab === 'packages') && (
-                  <div className={styles.cardsGridWrap}>
-                    <div className={styles.cardsGridHeader}>
-                      <span className={styles.gridSectionLabel}>
-                        ⚡ Fixed Instant Multiplier Packages
-                      </span>
-                      <span className={styles.gridSectionDesc}>
-                        Fixed reward packages with verified rate bonuses
-                      </span>
-                    </div>
-                    <div className={styles.cardsGrid}>
-                      {options.map((opt) => (
-                        <ExchangeCard
-                          key={opt.id}
-                          option={opt}
-                          availableGems={availableGems}
-                          onSelectExchange={handleSelectExchange}
-                          onEarnMoreGems={() => setIsEarnGemsOpen(true)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Custom Exchange Calculator Form (Shown in 'all' or 'custom' tab) */}
-                {(conversionTab === 'all' || conversionTab === 'custom') && (
-                  <div className={styles.customFormWrap}>
-                    <ExchangeForm
-                      availableGems={availableGems}
-                      availableVEs={availableVEs}
-                      onConfirmConversion={handleSelectExchange}
-                      onEarnMoreGems={() => setIsEarnGemsOpen(true)}
-                    />
-                  </div>
-                )}
-              </>
+              <div className={styles.cardsGrid}>
+                {options.map((opt) => (
+                  <ExchangeCard
+                    key={opt.id}
+                    option={opt}
+                    availableGems={availableGems}
+                    onSelectExchange={handleSelectExchange}
+                    onEarnMoreGems={() => setIsEarnGemsOpen(true)}
+                  />
+                ))}
+              </div>
             )}
           </section>
 
-          {/* Mid Reward Incentive Banner (VIP Milestone) */}
+          {/* Promotional Section: Rewards Benefits, Security & Instant Credit */}
           <MidRewardBanner
             onSelectExchange={handleSelectExchange}
             availableGems={availableGems}
             onEarnMoreGems={() => setIsEarnGemsOpen(true)}
           />
 
-          {/* 5-Step Process Flow: How Exchange Works */}
+          {/* 4-Step Process Flow: How Exchange Works (Choose, Review, Confirm, Receive) */}
           <div id="how-it-works-section">
             <HowExchangeWorks onOpenInfo={() => setIsGlossaryOpen(true)} />
           </div>
 
-          {/* Rules & Trust Guardrails (rendered in center for expanded mode) */}
-          <div id="exchange-rules-section">
-            <ExchangeRules onOpenGlossary={() => setIsGlossaryOpen(true)} />
+          {/* Mobile/Tablet Fallback: Rules & Recent History (rendered below main flow when right column stacks) */}
+          <div className={styles.mobileOnlyWidgets}>
+            <div id="exchange-rules-section">
+              <ExchangeRules onOpenGlossary={() => setIsGlossaryOpen(true)} />
+            </div>
+            <ExchangeHistory history={history} />
           </div>
-
-          {/* Recent Conversions Transaction Ledger */}
-          <ExchangeHistory history={history} />
         </main>
 
-        {/* Right Sidebar (rendered in 3-column mode) */}
-        {layoutMode === 'reference3Col' && (
-          <div className={styles.rightSidebarPane}>
-            <RightSidebar
-              gems={availableGems}
-              ves={availableVEs}
-              history={history}
-              onOpenGlossary={() => setIsGlossaryOpen(true)}
-              onOpenRules={handleScrollToRules}
-            />
-          </div>
-        )}
+        {/* 3. RIGHT SIDEBAR COLUMN (Top balances, What are these?, Recent Conversions, Exchange Rules) */}
+        <aside className={styles.rightSidebarWrapper}>
+          <RightSidebar
+            gems={availableGems}
+            ves={availableVEs}
+            history={history}
+            onOpenGlossary={() => setIsGlossaryOpen(true)}
+            onOpenRules={handleScrollToRules}
+          />
+        </aside>
       </div>
 
-      {/* 3. Global Footer */}
+      {/* Global Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerContainer}>
           <div className={styles.footerLeft}>
@@ -385,14 +325,14 @@ const ExchangeCenter = () => {
 
           <div className={styles.footerTrust}>
             <div className={styles.trustItem}>
-              <ShieldCheck size={16} className={styles.trustIcon} />
+              <ShieldCheck size={15} className={styles.trustIcon} />
               <div>
                 <strong>Encrypted Reward Ledger</strong>
                 <span>Instant cryptographically verified conversions</span>
               </div>
             </div>
             <div className={styles.trustItem}>
-              <HelpCircle size={16} className={styles.trustIcon} />
+              <HelpCircle size={15} className={styles.trustIcon} />
               <div>
                 <strong>Need Support?</strong>
                 <span>velooprewardsofficial@gmail.com</span>
@@ -460,7 +400,7 @@ const ExchangeCenter = () => {
         onClose={() => setIsGlossaryOpen(false)}
       />
 
-      {/* Evaluator & Demo Control Hub */}
+      {/* Evaluator & Demo Control Hub (Docked in bottom-left away from content) */}
       <DemoTools
         isOpen={isDevMenuOpen}
         onToggle={() => setIsDevMenuOpen(!isDevMenuOpen)}
